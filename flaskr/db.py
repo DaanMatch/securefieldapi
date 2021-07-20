@@ -6,7 +6,7 @@ from flask import g
 from flask.cli import with_appcontext
 
 
-def get_db():
+def get_db(retry=False):
     """Connect to the application's configured database. The connection
     is unique for each request and will be reused if this is called
     again.
@@ -18,7 +18,8 @@ def get_db():
             )
             g.db.row_factory = sqlite3.Row
         except:
-            init_db()
+            if retry:
+                get_db(False)
 
     return g.db
 
