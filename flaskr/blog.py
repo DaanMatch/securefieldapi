@@ -86,11 +86,11 @@ def create():
     return render_template("blog/create.html")
 
 
-@bp.route("/<dbid>/update", methods=("GET", "POST"))
+@bp.route("/<id>/update", methods=("GET", "POST"))
 @login_required
-def update(dbid):
+def update(id):
     """Update a post if the current user is the author."""
-    post = get_post(dbid)
+    post = get_post(id)
 
     if request.method == "POST":
         title = request.form["title"]
@@ -108,7 +108,7 @@ def update(dbid):
         else:
             db = get_db()
             db.execute(
-                "UPDATE post SET title = ?, body = ? WHERE id = ?", (title, body, dbid, latitude, longitude)
+                "UPDATE post SET title = ?, body = ? WHERE id = ?", (title, body, id, latitude, longitude)
             )
             db.commit()
             return redirect(url_for("blog.index"))
@@ -116,16 +116,16 @@ def update(dbid):
     return render_template("blog/update.html", post=post)
 
 
-@bp.route("/<record_id>/delete", methods=("POST",))
+@bp.route("/<id>/delete", methods=("POST",))
 @login_required
-def delete(record_id):
+def delete(id):
     """Delete a post.
 
     Ensures that the post exists and that the logged in user is the
     author of the post.
     """
-    get_post(record_id)
+    get_post(id)
     db = get_db()
-    db.execute("DELETE FROM post WHERE id = ?", (record_id,))
+    db.execute("DELETE FROM post WHERE id = ?", (id,))
     db.commit()
     return redirect(url_for("blog.index"))

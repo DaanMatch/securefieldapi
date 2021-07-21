@@ -10,6 +10,10 @@
     <input name="title" id="title" value="{{ request.form['title'] }}" required>
     <label for="body">Body</label>
     <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
-    <input type="submit" value="Save">
+     <label for="latitude">latitude</label>
+    <textarea name="latitude" id="body">{{ request.form['latitude'] }}</textarea>
+    <label for="longitude">longitude</label>
+    <textarea name="longitude" id="body">{{ request.form['longitude'] }}</textarea>
+   <input type="submit" value="Save">
   </form>
 {% endblock %}

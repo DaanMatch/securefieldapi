@@ -6,25 +6,21 @@ from flask import g
 from flask.cli import with_appcontext
 
 
-def get_db(retry=False):
+def get_db():
     """Connect to the application's configured database. The connection
     is unique for each request and will be reused if this is called
     again.
     """
     if "db" not in g:
-        try:
-            g.db = sqlite3.connect(
-                current_app.config["DATABASE"], detect_types=sqlite3.PARSE_DECLTYPES
-            )
-            g.db.row_factory = sqlite3.Row
-        except:
-            if retry:
-                get_db(False)
+        g.db = sqlite3.connect(
+            current_app.config["DATABASE"], detect_types=sqlite3.PARSE_DECLTYPES
+        )
+        g.db.row_factory = sqlite3.Row
 
     return g.db
 
 
-def close_db():
+def close_fildapi_db(e):
     """If this request connected to the database, close the
     connection.
     """
@@ -54,5 +50,5 @@ def init_app(app):
     """Register database functions with the Flask app. This is called by
     the application factory.
     """
-    app.teardown_appcontext(close_db)
+    app.teardown_appcontext(close_fildapi_db)
     app.cli.add_command(init_db_command)
