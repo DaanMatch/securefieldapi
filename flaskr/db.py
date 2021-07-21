@@ -20,7 +20,7 @@ def get_db():
     return g.db
 
 
-def close_fildapi_db():
+def close_fildapi_db(e):
     """If this request connected to the database, close the
     connection.
     """
