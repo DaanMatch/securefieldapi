@@ -20,7 +20,7 @@ def get_db():
     return g.db
 
 
-def close_db():
+def close_fildapi_db():
     """If this request connected to the database, close the
     connection.
     """
@@ -50,5 +50,5 @@ def init_app(app):
     """Register database functions with the Flask app. This is called by
     the application factory.
     """
-    app.teardown_appcontext(close_db)
+    app.teardown_appcontext(close_fildapi_db)
     app.cli.add_command(init_db_command)
