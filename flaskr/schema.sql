@@ -1,5 +1,6 @@
 -- Initialize the database.
 -- Drop any existing data and create empty tables.
+PRAGMA foreign_keys = ON;
 
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
@@ -16,8 +17,8 @@ CREATE TABLE post (
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   title TEXT NOT NULL,
   body TEXT NOT NULL,
-  latitude FLOAT,
-  longitude FLOAT,
-
+  latitude REAL,
+  longitude REAL,
+  img BLOB,
   FOREIGN KEY (author_id) REFERENCES user (id)
 );

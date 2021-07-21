@@ -6,20 +6,16 @@ from flask import g
 from flask.cli import with_appcontext
 
 
-def get_db(retry=False):
+def get_db():
     """Connect to the application's configured database. The connection
     is unique for each request and will be reused if this is called
     again.
     """
     if "db" not in g:
-        try:
-            g.db = sqlite3.connect(
-                current_app.config["DATABASE"], detect_types=sqlite3.PARSE_DECLTYPES
-            )
-            g.db.row_factory = sqlite3.Row
-        except:
-            if retry:
-                get_db(False)
+        g.db = sqlite3.connect(
+            current_app.config["DATABASE"], detect_types=sqlite3.PARSE_DECLTYPES
+        )
+        g.db.row_factory = sqlite3.Row
 
     return g.db
 
