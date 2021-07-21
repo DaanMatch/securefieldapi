@@ -4,6 +4,25 @@ python3 -m pip install -r requirements.txt
 export FLASK_APP=flaskr
 flask init-db
 flask run
+# Click the localhost link to see 
+Flaskr
+
+    Register   <<< Click Register and create a username and password
+    
+    Log In
+
+'''
+___
+'''
+Flaskr
+
+    pwletmein   << This is your user name
+    Log Out    <<< Click here to log out
+
+Posts                       New   <<< Click here to enter data
+ 
+
+Posts  
 ```
 [![name](link to image on GH)](./Register.png)
 ```angular2html
