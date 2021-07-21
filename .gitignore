@@ -3,3 +3,5 @@
 flaskr/__pycache__/
 instance/
 flaskr/venv/
+.vscode/
+workspace.code-workspace
