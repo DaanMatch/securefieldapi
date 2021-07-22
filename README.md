@@ -25,11 +25,11 @@ Posts                       New   <<< Click here to enter data
 
 Posts  
 ```
-[![name](link to image on GH)](./Register.png)
+[![name](./Images/Register.png)](./Images/Register.png)
 ```angular2html
 You will be logged in
 Once you are logged in you can add a record to the database
 Entering image uploads aren't supported yet that will come from field app in json
 
 ```
-[![name](link to image on GH)](./Nwq.png)
+[![name](./Images//Nwq.png)](./Images//Nwq.png)
