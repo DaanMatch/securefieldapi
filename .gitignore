@@ -5,3 +5,4 @@ instance/
 flaskr/venv/
 .vscode/
 workspace.code-workspace
+*.pyc
