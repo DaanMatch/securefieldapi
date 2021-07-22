@@ -11,9 +11,9 @@
     <label for="body">Body</label>
     <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
     <label for="latitude">latitude</label>
-    <textarea name="latitude" id="body">{{ request.form['latitude'] }}</textarea>
+    <input type="number" name="latitude" id="latitude" value="{{ request.form['latitude'] or post['latitude'] }}">
     <label for="longitude">longitude</label>
-    <textarea name="longitude" id="body">{{ request.form['longitude'] }}</textarea>
+    <input type="number" name="longitude" id="longitude" value="{{ request.form['longitude'] or post['longitude'] }}" >
 
     <input type="submit" value="Save">
   </form>

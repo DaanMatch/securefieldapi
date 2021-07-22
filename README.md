@@ -25,7 +25,7 @@ Posts                       New   <<< Click here to enter data
 
 Posts  
 ```
-[![name](link to image on GH)](./Register.png)
+[![name](./Images/Register.png)](./Images/Register.png)
 ```angular2html
 You will be logged in
 Once you are logged in you can add a record to the database

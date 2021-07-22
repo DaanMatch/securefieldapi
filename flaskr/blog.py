@@ -108,7 +108,8 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                "UPDATE post SET title = ?, body = ? WHERE id = ?", (title, body, id, latitude, longitude)
+                "UPDATE post SET title = ?, body = ?, latitude= ?, longitude = ? WHERE id = ?",
+                (title, body, latitude, longitude, id)
             )
             db.commit()
             return redirect(url_for("blog.index"))
