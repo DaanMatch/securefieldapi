@@ -1,2 +1,2 @@
-release: env FLASK_APP=flaskr exec flask init-db
+release: env FLASK_APP=flaskr python -m flask init-db
 web: gunicorn 'flaskr:create_app()'
