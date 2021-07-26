@@ -12,7 +12,7 @@ def get_db():
     again.
     """
     if (not os.path('instance/flaskr.sqlite')):
-        init_db_command()
+        init_db()
 
     if "db" not in g:
         g.db = sqlite3.connect(
