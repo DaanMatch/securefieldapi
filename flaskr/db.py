@@ -11,7 +11,7 @@ def get_db():
     is unique for each request and will be reused if this is called
     again.
     """
-    if (not os.path('instance/flaskr.sqlite')):
+    if not os.path.exists('instance/flaskr.sqlite'):
         init_db()
 
     if "db" not in g:
