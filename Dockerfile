@@ -17,4 +17,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Specify the command to run on container start
-CMD" ["env" "FLASK_APP=flaskr" "gunicorn" "-b" "'0.0.0.0':${PORT}" "'flaskr:create_app()'" ]
+CMD ["env" "FLASK_APP=flaskr" "gunicorn" "-b" "'0.0.0.0':${PORT}" "'flaskr:create_app()'" ]
