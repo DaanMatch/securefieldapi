@@ -1,3 +1,9 @@
+## Notes: 
+* Currently implements `registration_office` and `registration_number` tables of the data model. 
+* Primary key for both tables is `id` instead of `ngo_id` because marshmallow requires an `id` field in the schema. 
+* Field names starting with a number (i.e. `35AC_regdate`) are preceded with "rn_" (i.e. `rn_35AC_regdate`) because python variable names cannot start with a number.
+
+## Run the API locally:
 Create and start virtual environment<br/>
 `python -m venv .venv`<br/>
 `source .venv/bin/activate` or `source .venv/scripts/activate`
@@ -8,6 +14,7 @@ Install modules:<br/>
 Start the app:<br/>
 `python application.py`
 
+## API Interaction With cURL:
 So far I've just been using curl to act as the client side. 
 Below are a few example requests.
 
