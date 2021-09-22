@@ -63,7 +63,7 @@ class RegistrationOfficeSchema(Schema):
     registration_numbers = Relationship(self_view = 'registration_office_registration_numbers',
         self_view_kwargs = {'id': '<id>'},
         related_view = 'registration_number_many',
-        many = True,
+        many = False,
         schema = 'RegistrationNumberSchema',
         type_ = 'registration_number')
 
@@ -108,10 +108,10 @@ class RegistrationNumberOne(ResourceDetail):
     data_layer = {'session': db.session,
                   'model': RegistrationNumber}
 
-class RegistrationOfficeRegistrationNumber(ResourceDetail):
-    schema = RegistrationNumberSchema
+class RegistrationOfficeRegistrationNumber(ResourceRelationship):
+    schema = RegistrationOfficeSchema
     data_layer = {'session': db.session,
-                  'model': RegistrationNumber}
+                  'model': RegistrationOffice}
 
 # Create endpoints
 api = Api(app)
