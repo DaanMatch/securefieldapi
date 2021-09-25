@@ -2,7 +2,7 @@ from db import db
 
 class RegistrationNumber(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('registration_office.id'))
+    ngo_id =  db.Column(db.CHAR, db.ForeignKey('registration_office.ngo_id'))
     pan_no = db.Column(db.CHAR)
     pan_regdate = db.Column(db.Date)
     fcra_no = db.Column(db.CHAR)
