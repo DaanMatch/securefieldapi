@@ -1,5 +1,5 @@
 from marshmallow_jsonapi import fields
-from marshmallow_jsonapi.flask import Schema
+from marshmallow_jsonapi.flask import Relationship, Schema
 from marshmallow_enum import EnumField
 
 from utils.sdg import SDG
@@ -19,3 +19,12 @@ class OperationSchema(Schema):
     cities = fields.Str()
     district = fields.Str()
     gram_panchayats = fields.Str()
+
+    activities = Relationship(
+        self_view = 'operation_activities',
+        self_view_kwargs = {'id': '<id>'},
+        related_view = 'activity_many',
+        many = False,
+        schema = 'ActivitySchema',
+        type_ = 'activity'
+    )

@@ -1,9 +1,10 @@
+from sqlalchemy.orm import backref
 from db import db
 from utils.sdg import SDG
 
 class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    ngo_id =  db.Column(db.CHAR)
+    ngo_id =  db.Column(db.CHAR, db.ForeignKey('operation.ngo_id'))
     name = db.Column(db.String)
     description = db.Column(db.String)
     date = db.Column(db.Date)
@@ -17,3 +18,6 @@ class Activity(db.Model):
     gram_panchayat = db.Column(db.String)
     latitude = db.Column(db.DECIMAL)
     longitude = db.Column(db.DECIMAL)
+
+    operation = db.relationship('Operation', 
+        backref = db.backref('activities'))
