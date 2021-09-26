@@ -1,6 +1,7 @@
 ## Notes: 
+* Relationship between `registration_office` and `registration_number` might be broken. Currently implements a one-to-many relationship from `registration_office` to `registration_number` but I think it should be a one-to-one relationship instead.
 * Files db.py and api.py are used to prevent circular imports.
-* Currently implements `activity`, `registration_office`, and `registration_number` tables of the data model. 
+* Currently implements `activity`, `operation`, `registration_office`, and `registration_number` tables of the data model. 
 * For the `registration_number` table, field names starting with a number (i.e. `35AC_regdate`) are preceded with "rn_" (i.e. `rn_35AC_regdate`) because python variable names cannot start with a number.
 
 ## Run the API locally:
