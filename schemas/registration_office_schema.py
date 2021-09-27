@@ -1,5 +1,5 @@
 from marshmallow_jsonapi import fields
-from marshmallow_jsonapi.flask import Relationship, Schema
+from marshmallow_jsonapi.flask import Schema
 
 class RegistrationOfficeSchema(Schema):
     class Meta:
@@ -16,9 +16,4 @@ class RegistrationOfficeSchema(Schema):
     latitude = fields.Decimal()
     longitude = fields.Decimal()
 
-    registration_numbers = Relationship(self_view = 'registration_office_registration_numbers',
-        self_view_kwargs = {'id': '<id>'},
-        related_view = 'registration_number_many',
-        many = False,
-        schema = 'RegistrationNumberSchema',
-        type_ = 'registration_number')
+    

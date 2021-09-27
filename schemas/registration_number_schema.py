@@ -1,5 +1,5 @@
 from marshmallow_jsonapi import fields
-from marshmallow_jsonapi.flask import Schema
+from marshmallow_jsonapi.flask import Relationship, Schema
 
 
 class RegistrationNumberSchema(Schema):
@@ -21,3 +21,11 @@ class RegistrationNumberSchema(Schema):
     rn_80G_regdate = fields.Date()
     rn_35AC_no = fields.Str()
     rn_35AC_regdate = fields.Date()
+
+    registration_office = Relationship(
+        self_view = 'registration_number_registration_office',
+        self_view_kwargs = {'id': '<id>'},
+        related_view = 'registration_office_many',
+        many = False,
+        schema = 'RegistrationOfficeSchema',
+        type_ = 'registration_office')

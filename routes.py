@@ -16,12 +16,13 @@ api.route(OperationActivities, 'operation_activities',
 
 api.route(RegistrationNumberMany, 'registration_number_many', '/registration_numbers')
 api.route(RegistrationNumberOne, 'registration_number_one', '/registration_number/<int:id>')
-
+api.route(RegistrationNumberRegistrationOffice, 
+    'registration_number_registration_office', 
+    '/registration_number/<int:id>/relationships/registration_office')
+    
 api.route(RegistrationOfficeMany, 'registration_office_many', '/registration_offices')
 api.route(RegistrationOfficeOne, 'registration_office_one', '/registration_office/<int:id>')
-api.route(RegistrationOfficeRegistrationNumber, 
-    'registration_office_registration_numbers', 
-    '/registration_office/<int:id>/relationships/registration_numbers')
+
 
 
 
