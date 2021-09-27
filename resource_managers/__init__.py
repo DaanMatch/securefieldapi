@@ -1,5 +1,7 @@
 from .activity_many import *
 from .activity_one import *
+from .daanmatch_ngo_many import *
+from .daanmatch_ngo_one import *
 from .operation_one import *
 from .operation_many import *
 from .operation_activities import *
