@@ -10,6 +10,7 @@ class DaanmatchNgoSchema(Schema):
 
     id = fields.Integer()
     ngo_id = fields.Str()
+    name = fields.Str()
     description = fields.Str()
     majoracivity_description = fields.Str()
     type = fields.Str()
@@ -25,3 +26,12 @@ class DaanmatchNgoSchema(Schema):
     parttime_staff = fields.Integer()
     volunteers = fields.Integer()
     partner_ids = fields.Str()
+
+    registration_number = Relationship(
+        self_view = 'daanmatch_ngo_registration_number',
+        self_view_kwargs = {'id': '<id>'},
+        related_view = 'registration_number_one',
+        related_view_kwargs={'id': '<id>'},
+        many = False,
+        schema = 'RegistrationNumberSchema',
+        type_ = 'registration_number')

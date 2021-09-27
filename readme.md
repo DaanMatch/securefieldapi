@@ -7,7 +7,7 @@
 * Create SDG class (for sdg/sdgs in `operation` and `activity` tables)
 * Determine Field Constraints (required fields?, string/text length in db?)
 * Implement API For Tables: `city`, `district`, `exec_staff`, `finance`, `membership`, `operational_issue`, `partnership`, `state`
-* Implement Relationships Between: `daanmatch_ngo---operation`, `daanmatch_ngo---registration_number`, `daanmatch_ngo---membership`, `daanmatch_ngo--<partnership`, `daanmatch_ngo---exec_staff`, `operation---operational_issue`, `operation---state`, `operation---city`, `operation---district`
+* Implement Relationships Between: `daanmatch_ngo---operation`, `daanmatch_ngo---membership`, `daanmatch_ngo--<partnership`, `daanmatch_ngo---exec_staff`, `operation---operational_issue`, `operation---state`, `operation---city`, `operation---district`
 * Write the Documentation
 
 ## Run the API locally:

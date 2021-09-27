@@ -25,7 +25,8 @@ class RegistrationNumberSchema(Schema):
     registration_office = Relationship(
         self_view = 'registration_number_registration_office',
         self_view_kwargs = {'id': '<id>'},
-        related_view = 'registration_office_many',
+        related_view = 'registration_office_one',
+        related_view_kwargs = {'id': '<id>'},
         many = False,
         schema = 'RegistrationOfficeSchema',
         type_ = 'registration_office')
