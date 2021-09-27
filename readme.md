@@ -1,8 +1,14 @@
 ## Notes: 
-* Relationship between `registration_office` and `registration_number` might be broken. Currently implements a one-to-many relationship from `registration_office` to `registration_number` but I think it should be a one-to-one relationship instead.
 * Files db.py and api.py are used to prevent circular imports.
-* Currently implements `activity`, `operation`, `registration_office`, and `registration_number` tables of the data model. 
+* Currently implements API for `activity`, `daanmatch_ngo`, `operation`, `registration_office`, and `registration_number` tables of the data model. 
 * For the `registration_number` table, field names starting with a number (i.e. `35AC_regdate`) are preceded with "rn_" (i.e. `rn_35AC_regdate`) because python variable names cannot start with a number.
+
+## TODO:
+* Create SDG class (for sdg/sdgs in `operation` and `activity` tables)
+* Determine Field Constraints (required fields?, string/text length in db?)
+* Implement API For Tables: `city`, `district`, `exec_staff`, `finance`, `membership`, `operational_issue`, `partnership`, `state`
+* Implement Relationships Between: `daanmatch_ngo---operation`, `daanmatch_ngo---registration_number`, `daanmatch_ngo---membership`, `daanmatch_ngo--<partnership`, `daanmatch_ngo---exec_staff`, `operation---operational_issue`, `operation---state`, `operation---city`, `operation---district`
+* Write the Documentation
 
 ## Run the API locally:
 Create and start virtual environment<br/>
