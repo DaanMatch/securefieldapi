@@ -7,7 +7,7 @@
 * Create SDG class (for sdg/sdgs in `operation` and `activity` tables)
 * Determine Field Constraints (required fields?, string/text length in db?)
 * Implement API For Tables: `city`, `district`, `exec_staff`, `finance`, `membership`, `operational_issue`, `partnership`, `state`
-* Implement Relationships Between: `daanmatch_ngo---operation`, `daanmatch_ngo---membership`, `daanmatch_ngo--<partnership`, `daanmatch_ngo---exec_staff`, `operation---operational_issue`, `operation---state`, `operation---city`, `operation---district`
+* Implement Relationships Between: `daanmatch_ngo---membership`, `daanmatch_ngo--<partnership`, `daanmatch_ngo---exec_staff`, `operation---operational_issue`, `operation---state`, `operation---city`, `operation---district`
 * Write the Documentation
 
 ## Run the API locally:
@@ -36,7 +36,7 @@ Sends a GET request to retrieve all the registration_offices<br/>
 
 Alternatively, you can go directly to the url as indicated in the endpoints section at the bottom of application.py.
 Go directly to http://localhost:5000/registration_offices and you should see the same JSON as when you used the command above.
-
+After doing the above two post requests, you should be able to see the relationship at http://127.0.0.1:5000/registration_number/1/relationships/registration_office.
 
 
 

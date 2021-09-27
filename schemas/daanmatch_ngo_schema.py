@@ -35,3 +35,12 @@ class DaanmatchNgoSchema(Schema):
         many = False,
         schema = 'RegistrationNumberSchema',
         type_ = 'registration_number')
+
+    operation = Relationship(
+        self_view = 'daanmatch_ngo_operation',
+        self_view_kwargs = {'id': '<id>'},
+        related_view = 'operation_one',
+        related_view_kwargs={'id': '<id>'},
+        many = False,
+        schema = 'OperationSchema',
+        type_ = 'operation')
