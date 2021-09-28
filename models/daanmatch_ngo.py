@@ -1,6 +1,19 @@
 from db import db
 
 class DaanmatchNgo(db.Model):
+    """
+    Defines the daanmatch_ngo table schema. All db.Column attributes 
+    represent a column in the table.
+    ...
+
+    Important Attributes
+    --------------------
+    id:
+        Primary key in the table.
+    ngo_id: 
+        Unique and non-null. Cannot have multiple NGOs with the same
+        ngo_id in the table.
+    """
     id = db.Column(db.Integer, primary_key=True)
     ngo_id = db.Column(db.CHAR, unique=True, nullable=False)
     name = db.Column(db.String)
