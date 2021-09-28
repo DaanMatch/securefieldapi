@@ -1,7 +1,7 @@
 from flask import Flask
 
-from db import db
-from api import api
+from db import db # SQLAlchemy object imported to prevent circular imports
+from api import api # Api object imported from flask_rest_jsonapi to prevent circular imports
 from models import *
 from schemas import *
 from resource_managers import *
