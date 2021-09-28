@@ -12,7 +12,7 @@ class ActivitySchema(Schema):
         self_view_many = 'activity_many'
         
     id = fields.Integer()
-    ngo_id =  fields.Str()
+    ngo_id =  fields.Str(required=True)
     name = fields.Str()
     description = fields.Str()
     date = fields.Date()

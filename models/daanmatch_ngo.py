@@ -2,7 +2,7 @@ from db import db
 
 class DaanmatchNgo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    ngo_id = db.Column(db.CHAR)
+    ngo_id = db.Column(db.CHAR, unique=True, nullable=False)
     name = db.Column(db.String)
     description = db.Column(db.Text)
     majoracivity_description = db.Column(db.Text)

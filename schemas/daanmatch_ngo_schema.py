@@ -9,7 +9,7 @@ class DaanmatchNgoSchema(Schema):
         self_view_many = 'daanmatch_ngo_many'
 
     id = fields.Integer()
-    ngo_id = fields.Str()
+    ngo_id = fields.Str(required=True)
     name = fields.Str()
     description = fields.Str()
     majoracivity_description = fields.Str()

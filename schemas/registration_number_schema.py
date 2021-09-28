@@ -10,7 +10,7 @@ class RegistrationNumberSchema(Schema):
         self_view_many = 'registration_number_many'
         
     id = fields.Integer()
-    ngo_id = fields.Str()
+    ngo_id = fields.Str(required=True)
     pan_no = fields.Str()
     pan_regdate = fields.Date()
     fcra_no = fields.Str()

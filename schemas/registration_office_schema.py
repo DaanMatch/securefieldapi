@@ -9,7 +9,7 @@ class RegistrationOfficeSchema(Schema):
         self_view_many = 'registration_office_many'
 
     id = fields.Integer()
-    ngo_id =  fields.Str()
+    ngo_id =  fields.Str(required=True)
     registered_with = fields.Str()
     date = fields.Date()
     address = fields.Str()

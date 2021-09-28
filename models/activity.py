@@ -4,7 +4,8 @@ from utils.sdg import SDG
 
 class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('operation.ngo_id'))
+    ngo_id =  db.Column(db.CHAR, db.ForeignKey('operation.ngo_id'), 
+        nullable=False)
     name = db.Column(db.String)
     description = db.Column(db.String)
     date = db.Column(db.Date)

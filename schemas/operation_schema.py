@@ -12,7 +12,7 @@ class OperationSchema(Schema):
         self_view_many = 'operation_many'
 
     id = fields.Integer()
-    ngo_id = fields.Str()
+    ngo_id = fields.Str(required=True)
     issues = fields.Str()
     sdgs = EnumField(SDG)
     states = fields.Str()
