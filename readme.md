@@ -18,7 +18,7 @@ Create and start virtual environment<br/>
 `source .venv/bin/activate` or `source .venv/scripts/activate`
 
 Install modules:<br/>
-`pip install flask-rest-jsonapi flask-sqlalchemy marshmallow_enum`
+`python -m pip install -r requirements.txt`
 
 Start the app:<br/>
 `python application.py`
