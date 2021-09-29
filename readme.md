@@ -4,6 +4,8 @@
 * For the `registration_number` table, field names starting with a number (i.e. `35AC_regdate`) are preceded with "rn_" (i.e. `rn_35AC_regdate`) because python variable names cannot start with a number.
 
 ## TODO:
+* routes.py is getting pretty long. Probably need to split it up into 
+multiple files soon.
 * Create SDG class (for sdg/sdgs in `operation` and `activity` tables)
 * Determine Field Constraints (required fields?, string/text length in db?)
 * Implement API For Tables: `city`, `district`, `exec_staff`, `finance`, `membership`, `operational_issue`, `partnership`, `state`
