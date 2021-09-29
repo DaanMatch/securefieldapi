@@ -4,6 +4,7 @@ General format for each model:
 
 # All models inherit from db.Model. (db is a SQLAlchemy() object)
 # TableNames are converted from UpperCamelCase to snake_case in the db.
+
 class TableName(db.Model): 
 
     # Table Attributes:
