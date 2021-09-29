@@ -3,6 +3,35 @@ from marshmallow_jsonapi.flask import Relationship, Schema
 
 
 class RegistrationNumberSchema(Schema):
+    """
+    Acts as the abstraction layer between the registration_number 
+    table and user. This class allows us to control what fields 
+    to accept from/sent back to the user.
+
+    Important Attributes
+    --------------------
+    id: (Required) 
+        Primary key in the table.
+    Meta: (Required) 
+        Class specifies metadata to be sent back to the user.
+
+        Meta Attributes
+        ---------------
+        type_: (Required) 
+            This is required in the Meta Class
+        self_view:
+            URL endpoint to an individual registration_number
+        self_view_kwargs:
+            Fields for self_view to pass to URL
+        self_view_many:
+            URL endpoint to all registration_number
+
+    registration_office:
+        Establishes a one-to-one relationship between 
+        registration_office and registration_number because 
+        registration_office.ngo_id is not unique.
+    """
+
     class Meta:
         type_ = 'registration_number'
         self_view = 'registration_number_one'
@@ -22,6 +51,7 @@ class RegistrationNumberSchema(Schema):
     rn_35AC_no = fields.Str()
     rn_35AC_regdate = fields.Date()
 
+    # These args function similarly to those in the Meta class
     registration_office = Relationship(
         self_view = 'registration_number_registration_office',
         self_view_kwargs = {'id': '<id>'},
