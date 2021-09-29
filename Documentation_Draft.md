@@ -15,26 +15,11 @@ This version of the documentation is neither complete nor robust. As of right no
 | /activity/\<int:id\>            | GET    | activity_one             | Retrieve details of an activity             |
 | /activity/\<int:id\>            | PATCH  | activity_one             | Updates an activity                         |
 | /activity/\<int:id\>            | DELETE | activity_one             | Deletes an activity                         |
-| /daanmatch_ngos                 | GET    | daanmatch_ngo_many       | Retrieve a list of all NGOs                 |
-| /daanmatch_ngos                 | POST   | daanmatch_ngo_many       | Creates an NGO                              |
-| /daanmatch_ngo/\<int:id\>       | GET    | daanmatch_ngo_one        | Retrieve details of an NGO                  |
-| /daanmatch_ngo/\<int:id\>       | PATCH  | daanmatch_ngo_one        | Updates an NGO                              |
-| /daanmatch_ngo/\<int:id\>       | DELETE | daanmatch_ngo_one        | Deletes an NGO                              |
 | /operations                     | GET    | operation_many           | Retrieve a list of all operations           |
 | /operations                     | POST   | operation_many           | Creates an operation                        |
 | /operation/\<int:id\>           | GET    | daanmatch_ngo_one        | Retrieve details of an operation            |
 | /operation/\<int:id\>           | PATCH  | daanmatch_ngo_one        | Updates an operation                        |
 | /operation/\<int:id\>           | DELETE | daanmatch_ngo_one        | Deletes an operation                        |
-| /registration_numbers           | GET    | registration_number_many | Retrieve a list of all registration_number  |
-| /registration_numbers           | POST   | registration_number_many | Creates a registration_number               |
-| /registration_number/\<int:id\> | GET    | registration_number_one  | Retrieve details of a registration_number   |
-| /registration_number/\<int:id\> | PATCH  | registration_number_one  | Updates a registration_number               |
-| /registration_number/\<int:id\> | DELETE | registration_number_one  | Deletes a registration_number               |
-| /registration_offices           | GET    | registration_office_many | Retrieve a list of all registration_offices |
-| /registration_offices           | POST   | registration_office_many | Creates a registration_office               |
-| /registration_office/\<int:id\> | GET    | registration_office_one  | Retrieve details of a registration_office   |
-| /registration_office/\<int:id\> | PATCH  | registration_office_one  | Updates a registration_office               |
-| /registration_office/\<int:id\> | DELETE | registration_office_one  | Deletes a registration_office               |
 
 <br/><br/><br/><br/>
 
@@ -42,46 +27,13 @@ This version of the documentation is neither complete nor robust. As of right no
 
 | URL                           | Method   | Endpoint               | Action                                    |
 |-------------------------------|----------|------------------------|-------------------------------------------|
-| /partnerships                 | GET      | partnership_many       | Retrieve a list of all partnerships       |
-| /partnerships                 | POST     | partnership_many       | Creates an partnership                    |   
-| /partnership/\<int:id\>       | GET      | partnership_one        | Retrieve details of an partnership        |   
-| /partnership/\<int:id\>       | PATCH    | partnership_one        | Updates an partnership                    |   
-| /partnership/\<int:id\>       | DELETE   | partnership_one        | Deletes an partnership                    |   
+
 | /memberships                  | GET      | membership_many        | Retrieve a list of all memberships        |   
 | /memberships                  | POST     | membership_many        | Creates an membership                     |   
 | /membership/\<int:id\>        | GET      | membership_one         | Retrieve details of an membership         |   
 | /membership/\<int:id\>        | PATCH    | membership_one         | Updates an membership                     |   
 | /membership/\<int:id\>        | DELETE   | membership_one         | Deletes an membership                     |  
-| /operational_issues           | GET      | operational_issue_many | Retrieve a list of all operational_issues |   
-| /operational_issues           | POST     | operational_issue_many | Creates an operational_issue              |   
-| /operational_issue/\<int:id\> | GET      | operational_issue_one  | Retrieve details of an operational_issue  |   
-| /operational_issue/\<int:id\> | PATCH    | operational_issue_one  | Updates an operational_issue              |   
-| /operational_issue/\<int:id\> | DELETE   | operational_issue_one  | Deletes an operational_issue              |   
-| /states                       | GET      | state_many             | Retrieve a list of all states             |   
-| /states                       | POST     | state_many             | Creates a state                           |   
-| /state/\<int:id\>             | GET      | state_one              | Retrieve details of a state               |   
-| /state/\<int:id\>             | PATCH    | state_one              | Updates a state                           |   
-| /state/\<int:id\>             | DELETE   | state_one              | Deletes a state                           |  
-| /cities                       | GET      | city_many              | Retrieve a list of all cities             |   
-| /cities                       | POST     | city_many              | Creates a city                            |   
-| /city/\<int:id\>              | GET      | city_one               | Retrieve details of a city                |   
-| /city/\<int:id\>              | PATCH    | city_one               | Updates a city                            |   
-| /city/\<int:id\>              | DELETE   | city_one               | Deletes a city                            |   
-| /districts                    | GET      | district_many          | Retrieve a list of all districts          |
-| /districts                    | POST     | district_many          | Creates a district                        |
-| /district/\<int:id\>          | GET      | district_one           | Retrieve details of a district            |   
-| /district/\<int:id\>          | PATCH    | district_one           | Updates a district                        |   
-| /district/\<int:id\>          | DELETE   | district_one           | Deletes a district                        |   
-| /finances                     | GET      | finance_many           | Retrieve a list of all finances           |   
-| /finances                     | POST     | finance_many           | Creates a finance                         |   
-| /finance/\<int:id\>           | GET      | finance_one            | Retrieve details of a finance             |   
-| /finance/\<int:id\>           | PATCH    | finance_one            | Updates a finance                         |   
-| /finance/\<int:id\>           | DELETE   | finance_one            | Deletes a finance                         |
-| /exec_staff                   | GET      | exec_staff_many        | Retrieve a list of all exec_staff         |
-| /exec_staff                   | POST     | exec_staff_many        | Creates an exec_staff                     |
-| /exec_staff/\<int:id\>        | GET      | exec_staff_one         | Retrieve details of an exec_staff         |
-| /exec_staff/\<int:id\>        | PATCH    | exec_staff_one         | Updates an exec_staff                     |
-| /exec_staff/\<int:id\>        | DELETE   | exec_staff_one         | Deletes an exec_staff                     |
+
 
 <br/><br/><br/><br/>
 
@@ -360,22 +312,5 @@ Reference the following table for attributes of the registration_number table, o
 
 <br/>
 
-### Registration Number:
-
-Atribute: | Data Type:
--|-
-ngo_id | char
-pan_no | char
-pan_regdate | date
-fcra_no | char
-fcra_regdate | date
-rn_12A_no | char
-rn_12A_regdate | date
-rn_80G_no | char
-rn_80G_regdate | date
-rn_35AC_no | char
-rn_35AC_regdate | date
-
-<br/>
 
 <img width="897" alt="Screen Shot 2021-09-12 at 15 30 12" src="https://user-images.githubusercontent.com/70539478/133004826-5c9d8312-e067-4418-97f4-5dc8986990a6.png">
