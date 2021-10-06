@@ -29,10 +29,6 @@ class DaanmatchNgoSchema(Schema):
         Establishes a one-to-one relationship between daanmatch_ngo and 
         registration_number because registration_number.ngo_id is 
         unique (Normally many=False specifies many-to-one)
-    operation:
-        Establishes a one-to-one relationship between daanmatch_ngo and 
-        operation because operation.ngo_id is unique (Normally 
-        many=False specifies many-to-one)
     """
 
     class Meta:
@@ -69,12 +65,3 @@ class DaanmatchNgoSchema(Schema):
         many = False,
         schema = 'RegistrationNumberSchema',
         type_ = 'registration_number')
-
-    operation = Relationship(
-        self_view = 'daanmatch_ngo_operation',
-        self_view_kwargs = {'id': '<id>'},
-        related_view = 'operation_one',
-        related_view_kwargs={'id': '<id>'},
-        many = False,
-        schema = 'OperationSchema',
-        type_ = 'operation')

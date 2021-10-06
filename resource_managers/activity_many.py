@@ -6,7 +6,7 @@ from models import Activity
 
 class ActivityMany(ResourceList):
     """
-    Inheriting from ResourceList creates GET and POST 
+    Inheriting from ResourceList creates GET (multiple) and POST 
     methods for activity.
     ...
 
@@ -18,7 +18,7 @@ class ActivityMany(ResourceList):
         Implements CRUD interface for objects and relationships. 
         session and model are required params.
     """
-    
+
     schema = ActivitySchema
     data_layer = {'session': db.session,
                   'model': Activity}

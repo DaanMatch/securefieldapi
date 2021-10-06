@@ -14,15 +14,9 @@ class Activity(db.Model):
     ngo_id: 
         Not unique b/c an NGO's operation can have multiple activities.
         This is also the foreign key for the operation table.
-    sdg: 
-        SDG class currently not implemented. This field is likely to be 
-        removed in the future.
-    operation:
-        Establish many-to-one relationship between activity and 
-        operation.
     """
     id = db.Column(db.Integer, primary_key=True)
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('operation.ngo_id'), 
+    ngo_id =  db.Column(db.CHAR, 
         nullable=False)
     name = db.Column(db.String)
     description = db.Column(db.String)
@@ -37,6 +31,3 @@ class Activity(db.Model):
     gram_panchayat = db.Column(db.String)
     latitude = db.Column(db.DECIMAL)
     longitude = db.Column(db.DECIMAL)
-
-    operation = db.relationship('Operation', 
-        backref = db.backref('activities'))
