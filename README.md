@@ -1,8 +1,7 @@
 
 ## Notes
-- Working on primarily on user verification 
 - Currently implements API for `member`, `people`,  `field_data`, of the data model.
-
+- User verification with mobile device id
 
 ## To - Dos
 1. Adding a `mobile_id` column
@@ -12,7 +11,7 @@
     - `member` --- `field_data`
 
 
-## To - Discuss
+## To Discuss
 - `member` -- `field`: column `recorded_by` refers to the PK in `member` table but the data types are different
 - Difference between `people` and `member`
 
