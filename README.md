@@ -1,35 +1,35 @@
-```
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-export FLASK_APP=flaskr
-flask init-db
-flask run
-# Click the localhost link to see 
-Flaskr
 
-    Register   <<< Click Register and create a username and password
-    
-    Log In
+## Notes
+- Working on primarily on user verification 
+- Currently implements API for `member`, `people`,  `field_data`, of the data model.
 
-'''
-___
-'''
-Flaskr
 
-    pwletmein   << This is your user name
-    Log Out    <<< Click here to log out
+## To - Dos
+1. Adding a `mobile_id` column
+2. Coming up with a hashing algorithm for the password (create a documentation on this)
+3. Establish relationship within following tables
+    - `member` --- `people`
+    - `member` --- `field_data`
 
-Posts                       New   <<< Click here to enter data
- 
 
-Posts  
-```
-[![name](./Images/Register.png)](./Images/Register.png)
-```angular2html
-You will be logged in
-Once you are logged in you can add a record to the database
-Entering image uploads aren't supported yet that will come from field app in json
+## To - Discuss
+- `member` -- `field`: column `recorded_by` refers to the PK in `member` table but the data types are different
+- Difference between `people` and `member`
+
+
+## Running the API Locally
 
 ```
-[![name](./Images//Nwq.png)](./Images//Nwq.png)
+Create and start virtual environment
+python -m venv .venv
+source .venv/bin/activate or source .venv/scripts/activate
+
+Install modules:
+python -m pip install -r requirements.txt
+
+Start the app:
+python application.py
+```
+
+## API Interactino with cURL
+
