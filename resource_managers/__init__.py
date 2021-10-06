@@ -17,8 +17,8 @@ class ResourceManager(Resource_________):
                   'model': ResourceModel}   # Required attr
 """
 
-from .activity_many import *
-from .activity_one import *
+from .field_data_many import *
+from .field_data_one import *
 
 from .daanmatch_ngo_many import *
 from .daanmatch_ngo_one import *

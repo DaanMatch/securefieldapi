@@ -18,7 +18,7 @@ class TableName(db.Model):
 
 """
 
-from .activity import *
+from .field_data import *
 from .daanmatch_ngo import *
 from .registration_number import *
 from .registration_office import *

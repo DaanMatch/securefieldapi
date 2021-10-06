@@ -4,11 +4,11 @@ from resource_managers import *
 
 # Format: api.route(<Resource manager>, <endpoint name>, <url_1>, <url_2>, ...)
 
-# Provides GET and POST to /activities
-api.route(ActivityMany, 'activity_many', '/activities')
+# Provides GET and POST to /field_data
+api.route(FieldDataMany, 'field_data_many', '/field_data')
 
-# Provides GET, PATCH, and DELETE to /activity/<int:id>
-api.route(ActivityOne, 'activity_one', '/activity/<int:id>')
+# Provides GET, PATCH, and DELETE to /field_data/<str:id>
+api.route(FieldDataOne, 'field_data_one', '/field_data/<string:id>')
 
 # Provides GET and POST to /daanmatch_ngos
 api.route(DaanmatchNgoMany, 'daanmatch_ngo_many', '/daanmatch_ngos')
