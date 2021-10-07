@@ -11,7 +11,7 @@ class DaanmatchNgo(db.Model):
     id:
         Primary key in the table.
     """
-    id = db.Column(db.CHAR, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     description = db.Column(db.Text)
     type = db.Column(db.String)

@@ -22,12 +22,12 @@ class Partnership(db.Model):
     """
     # TODO: Consider different implementation
     id = db.Column(db.Integer, primary_key = True)
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'), 
+    ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'), 
         nullable = False)
-    partner_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'), 
+    partner_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'), 
         nullable = False)
     relationship = db.Column(db.String)
-    sector_id = db.Column(db.CHAR)
+    sector_id = db.Column(db.Integer)
 
     daanmatch_ngo = db.relationship('DaanmatchNgo', 
         backref=db.backref('partnership', uselist = True))

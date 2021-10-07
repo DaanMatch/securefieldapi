@@ -20,8 +20,8 @@ class People(db.Model):
         and daanmatch_ngo.
     """
     id = db.Column(db.Integer, primary_key = True)
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'))
-    member_id =  db.Column(db.CHAR, db.ForeignKey('member.id'))
+    ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'))
+    member_id =  db.Column(db.Integer, db.ForeignKey('member.id'))
     designation = db.Column(db.String)
 
     daanmatch_ngo = db.relationship('DaanmatchNgo', 

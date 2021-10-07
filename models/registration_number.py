@@ -23,7 +23,7 @@ class RegistrationNumber(db.Model):
         Establish one-to-one relationship between daanmatch_ngo 
         and registration_number.
     """
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'), 
+    ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'), 
         primary_key=True)
     pan_no = db.Column(db.CHAR)
     pan_regdate = db.Column(db.Date)

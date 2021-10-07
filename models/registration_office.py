@@ -15,7 +15,7 @@ class RegistrationOffice(db.Model):
         Establish one-to-one relationship between daanmatch_ngo 
         and registration_office.
     """
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'), 
+    ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'), 
         primary_key=True)
     registered_with = db.Column(db.String)
     date = db.Column(db.Date)

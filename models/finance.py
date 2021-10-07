@@ -14,7 +14,7 @@ class Finance(db.Model):
         Establish one-to-one relationship between daanmatch_ngo 
         and finance.
     """
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'), 
+    ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'), 
         primary_key=True)
     annual_expenditure = db.Column(db.Float)
     total_funding_gap = db.Column(db.Float)

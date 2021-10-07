@@ -25,8 +25,8 @@ class FieldData(db.Model):
     sector:
         Creates a relationship between sector and field_data
     """
-    id = db.Column(db.CHAR, primary_key=True)
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'),
+    id = db.Column(db.Integer, primary_key=True)
+    ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'),
         nullable=False)
     recorded_by = db.Column(db.Text, db.ForeignKey('member.id'))
     date = db.Column(db.Date)
@@ -37,7 +37,7 @@ class FieldData(db.Model):
     comment = db.Column(db.Text)
     media = db.Column(db.Text)
     media_type = db.Column(db.Text)
-    sector_id = db.Column(db.CHAR, db.ForeignKey('sector.id'))
+    sector_id = db.Column(db.Integer, db.ForeignKey('sector.id'))
     sdg = db.Column(db.CHAR)
 
     daanmatch_ngo = db.relationship('Daanmatch_Ngo', 

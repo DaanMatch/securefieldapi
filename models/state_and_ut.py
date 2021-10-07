@@ -11,5 +11,5 @@ class StateAndUt(db.Model):
     id: 
         Primary key for the table.
     """
-    id =  db.Column(db.CHAR,  primary_key=True)
+    id =  db.Column(db.Integer,  primary_key=True)
     name = db.Column(db.String)
