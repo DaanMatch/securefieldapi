@@ -32,12 +32,12 @@ class RegistrationNumber(db.Model):
     pan_regdate = db.Column(db.Date)
     fcra_no = db.Column(db.CHAR)
     fcra_regdate = db.Column(db.Date)
-    rn_12A_no = db.Column(db.CHAR)
-    rn_12A_regdate = db.Column(db.Date)
-    rn_80G_no = db.Column(db.CHAR)
-    rn_80G_regdate = db.Column(db.Date)
-    rn_35AC_no = db.Column(db.CHAR)
-    rn_35AC_regdate = db.Column(db.Date)
+    rn_12A_no = db.Column("12A_no", db.CHAR)
+    rn_12A_regdate = db.Column("12A_regdate", db.Date)
+    rn_80G_no = db.Column("80G_no", db.CHAR)
+    rn_80G_regdate = db.Column("80G_regdate", db.Date)
+    rn_35AC_no = db.Column("35AC_no", db.CHAR)
+    rn_35AC_regdate = db.Column("35AC_regdate", db.Date)
 
     daanmatch_ngo = db.relationship('DaanmatchNgo', 
         backref=db.backref('registration_number', uselist = False))
