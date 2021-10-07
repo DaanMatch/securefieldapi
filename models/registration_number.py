@@ -8,10 +8,8 @@ class RegistrationNumber(db.Model):
 
     Important Attributes
     --------------------
-    id:
-        Primary key in the table.
     ngo_id: 
-        Unique and non-null. This is also the foreign key for the 
+        Primary key in the table. This is also the foreign key for the 
         daanmatch_ngo table.
     rn_12A_no: 
     rn_12A_regdate:
@@ -22,12 +20,11 @@ class RegistrationNumber(db.Model):
         These attrs are preceded w/ rn_ because variable names cannot 
         start w/ number.
     daanmatch_ngo:
-        Establish one-to-one relationship between registration_number 
-        and daanmatch_ngo.
+        Establish one-to-one relationship between daanmatch_ngo 
+        and registration_number.
     """
-    id = db.Column(db.Integer, primary_key=True)
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.ngo_id'), 
-        unique=True, nullable=False)
+    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'), 
+        primary_key=True)
     pan_no = db.Column(db.CHAR)
     pan_regdate = db.Column(db.Date)
     fcra_no = db.Column(db.CHAR)

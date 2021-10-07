@@ -8,23 +8,20 @@ class RegistrationOffice(db.Model):
 
     Important Attributes
     --------------------
-    id:
-        Primary key in the table.
     ngo_id: 
-        Unique and non-null. This is also the foreign key for the 
-        registration_number table.
-    registration_number:
-        Establish one-to-one relationship between registration_office 
-        and registration_number.
+        Primary key for daanmatch_ngo.ig. This is also the foreign key 
+        for the daanmatch_ngo table.
+    daanmatch_ngo:
+        Establish one-to-one relationship between daanmatch_ngo 
+        and registration_office.
     """
-    id = db.Column(db.Integer, primary_key=True)
-    ngo_id =  db.Column(db.CHAR, db.ForeignKey('registration_number.ngo_id'), 
-        unique=True, nullable=False)
+    ngo_id =  db.Column(db.CHAR, db.ForeignKey('daanmatch_ngo.id'), 
+        primary_key=True)
     registered_with = db.Column(db.String)
     date = db.Column(db.Date)
     address = db.Column(db.String)
     latitude = db.Column(db.DECIMAL)
     longitude = db.Column(db.DECIMAL)
 
-    registration_number = db.relationship('RegistrationNumber', 
+    daanmatch_ngo = db.relationship('DaanmatchNgo', 
         backref=db.backref('registration_office', uselist = False))
