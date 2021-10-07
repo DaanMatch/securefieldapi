@@ -54,3 +54,4 @@ class FieldDataSchema(Schema):
     title = fields.Str()
     comment = fields.Str()
     media = fields.Str()
+    media_type = fields.Str()

@@ -35,3 +35,4 @@ class FieldData(db.Model):
     title = db.Column(db.String)
     comment = db.Column(db.Text)
     media = db.Column(db.Text)
+    media_type = db.Column(db.Text)
