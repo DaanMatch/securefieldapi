@@ -1,7 +1,6 @@
 from api import api
 from resource_managers import *
 
-
 # Format: api.route(<Resource manager>, <endpoint name>, <url_1>, <url_2>, ...)
 
 # Provides GET and POST to /activities
