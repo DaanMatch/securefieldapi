@@ -19,6 +19,8 @@ class Member(db.Model):
         Email address of the user
     mobile_id:
         The device id of the mobile the user is accessing from
+    password:
+        password for the user verification
     """
     
     id = db.Column(db.Integer, primary_key=True)
