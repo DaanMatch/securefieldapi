@@ -15,6 +15,9 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 | /field_data/\<int:id\> | GET | field_data_one | Retrieve details of a field_data entry |
 | /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data |
 | /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data | Need to create a workaround to prevent malicious deletion
+| /member | POST | member_many | Creates an member | Might not need?
+| /member/\<int:id\> | GET | member_one | Retrieve details of a member | Allow user to see their own info (except password)
+| /member/\<int:id\> | PATCH | member_one | Updates a member | Use this to let members already in the database set a password. Right now this can still update any all member fields.
 
 <br/><br/><br/><br/>
 
@@ -22,9 +25,7 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 
 | URL | Method | Endpoint | Action | Notes |
 |--|--|--|--|--|
-| /member | POST | member_many | Creates an member | Might not need?
-| /member/\<int:id\> | GET | member_one | Retrieve details of a member | Allow user to see their own info (except password)
-| /member/\<int:id\> | PATCH | member_one | Updates a member | Use this to let members already in the database set a password
+
 
 <br/><br/><br/><br/>
 

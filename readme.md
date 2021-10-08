@@ -3,8 +3,7 @@
 * Currently implements API for `field_data` tables of the data model. 
 
 ## TODO:
-* Figure out how to delete unnecessary models w/o breaking things.
-* Implement API For Tables: `member`, `people`
+* Clean up unnecessary code once core functionality inplace.
 * Write the Documentation
 
 ## Run the API locally:

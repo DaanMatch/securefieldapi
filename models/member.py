@@ -10,10 +10,14 @@ class Member(db.Model):
     --------------------
     id: 
         Primary key for the table.
+    mobile_device_id:
+        Unique device id to verify user
+    password:
+        For auth. This is the only field that the user creates.
     """
     id =  db.Column(db.Integer, primary_key=True)
-    mobile = db.Column(db.String)
     name = db.Column(db.String)
+    mobile = db.Column(db.String)
     email = db.Column(db.String)
     mobile_device_id = db.Column(db.String)
     password = db.Column(db.String)

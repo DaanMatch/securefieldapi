@@ -7,9 +7,21 @@ from resource_managers import *
 # Provides GET and POST to /field_data
 api.route(FieldDataMany, 'field_data_many', '/field_data')
 
-# Provides GET, PATCH, and DELETE to /field_data/<str:id>
-api.route(FieldDataOne, 'field_data_one', '/field_data/<string:id>')
+# Provides GET, PATCH, and DELETE to /field_data/<int:id>
+api.route(FieldDataOne, 'field_data_one', '/field_data/<int:id>')
 
+
+# Provides GET and POST to /member
+api.route(MemberMany, 'member_many', '/member')
+
+# Provides GET, PATCH, and DELETE to /member/<int:id>
+api.route(MemberOne, 'member_one', '/member/<int:id>')
+
+
+
+#########
+# Below routes will likely be removed in the future
+#########
 # Provides GET and POST to /daanmatch_ngos
 api.route(DaanmatchNgoMany, 'daanmatch_ngo_many', '/daanmatch_ngos')
 
