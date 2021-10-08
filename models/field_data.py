@@ -25,6 +25,7 @@ class FieldData(db.Model):
     sector:
         Creates a relationship between sector and field_data
     """
+    
     id = db.Column(db.Integer, primary_key=True)
     ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'),
         nullable=False)
@@ -40,7 +41,7 @@ class FieldData(db.Model):
     sector_id = db.Column(db.Integer, db.ForeignKey('sector.id'))
     sdg = db.Column(db.CHAR)
 
-    daanmatch_ngo = db.relationship('Daanmatch_Ngo', 
+    daanmatch_ngo = db.relationship('DaanmatchNgo', 
         backref=db.backref('field_data', uselist = False))
 
     member = db.relationship('Member', 

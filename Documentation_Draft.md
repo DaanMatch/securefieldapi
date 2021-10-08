@@ -2,38 +2,29 @@
 
 ### Note:
 
-This version of the documentation is neither complete nor robust. As of right now, the documentation does not contain information regarding relationships between tables (relationship routes might not be necessary for the final API?). It (hopefully) contains enough information to help you understand how to get started using/working on the current version of the API. This documentation and the API itself is subject to change.
+This version of the documentation is neither complete nor robust. It (hopefully) contains enough information to help you understand how to get started using/working on the current version of the API. This documentation and the API itself is subject to change.
 
 <br/>
 
 ## Currently Implements:
 
-| URL                             | Method | Endpoint                 | Action                                      |
-|---------------------------------|--------|--------------------------|---------------------------------------------|
-| /activities                     | GET    | activity_many            | Retrieve a list of all activities           |
-| /activities                     | POST   | activity_many            | Creates an activity                         |
-| /activity/\<int:id\>            | GET    | activity_one             | Retrieve details of an activity             |
-| /activity/\<int:id\>            | PATCH  | activity_one             | Updates an activity                         |
-| /activity/\<int:id\>            | DELETE | activity_one             | Deletes an activity                         |
-| /operations                     | GET    | operation_many           | Retrieve a list of all operations           |
-| /operations                     | POST   | operation_many           | Creates an operation                        |
-| /operation/\<int:id\>           | GET    | daanmatch_ngo_one        | Retrieve details of an operation            |
-| /operation/\<int:id\>           | PATCH  | daanmatch_ngo_one        | Updates an operation                        |
-| /operation/\<int:id\>           | DELETE | daanmatch_ngo_one        | Deletes an operation                        |
+| URL | Method | Endpoint | Action | Notes |
+|--|--|--|--|--|
+| /field_data | GET | field_data_many | Retrieve a list of all field_data entries |
+| /field_data | POST | field_data_many | Creates a field_data entry |
+| /field_data/\<int:id\> | GET | field_data_one | Retrieve details of a field_data entry |
+| /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data |
+| /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data | Need to create a workaround to prevent malicious deletion
 
 <br/><br/><br/><br/>
 
 ## Need To Implement:
 
-| URL                           | Method   | Endpoint               | Action                                    |
-|-------------------------------|----------|------------------------|-------------------------------------------|
-
-| /memberships                  | GET      | membership_many        | Retrieve a list of all memberships        |   
-| /memberships                  | POST     | membership_many        | Creates an membership                     |   
-| /membership/\<int:id\>        | GET      | membership_one         | Retrieve details of an membership         |   
-| /membership/\<int:id\>        | PATCH    | membership_one         | Updates an membership                     |   
-| /membership/\<int:id\>        | DELETE   | membership_one         | Deletes an membership                     |  
-
+| URL | Method | Endpoint | Action | Notes |
+|--|--|--|--|--|
+| /member | POST | member_many | Creates an member | Might not need?
+| /member/\<int:id\> | GET | member_one | Retrieve details of a member | Allow user to see their own info (except password)
+| /member/\<int:id\> | PATCH | member_one | Updates a member | Use this to let members already in the database set a password
 
 <br/><br/><br/><br/>
 
@@ -47,32 +38,30 @@ The following examples hold the same pattern for all the routes defined above. Y
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
-| POST | /activities | activity_many | Create an activity
+| POST | /field_data | field_data_many | Create a field_data entry
 
 ### Request:
 ```
-POST /activities HTTP/1.0
+POST /field_data HTTP/1.0
 Content-Type: application/vnd.api+json
 Accept: application/vnd.api+json
 
 {
     "data":{
-        "type":"activity",
+        "type":"field_data",
         "attributes":{
-            "ngo_id":"Unique id",
-            "name":"Activity Name",
-            "description":"Descriptive description",
-            "date":"2021:09:27",
-            "issue":"A big issue",
-            "sdg":null,
-            "beneficiaries":"Some beneficiaries",
-            "address":"An address",
-            "state":"Some state",
-            "district":"Some district",
-            "city":"Some city",
-            "gram_panchayat":"village-governing institute in Indian village",
-            "latitude":123.123,
-            "longitude":456.456
+            "ngo_id":152,
+            "recorded_by":1234,
+            "date":"2000-10-10",
+            "address":"Address",
+            "latitude":90.5,
+            "longitude":456.565,
+            "title":"Title",
+            "comment":"Comment",
+            "media":"Media lnk",
+            "media_type":"photo/video/etc",
+            "sector_id":645,
+            "sdg":"Goal"
         }
     }
 }
@@ -85,30 +74,28 @@ Content-Type: application/vnd.api+json
 
 {
     "data":{
-        "type":"activity",
-        "attributes":{
-            "ngo_id":"Unique id",
-            "name":"Activity Name",
-            "description":"Descriptive description",
-            "date":"2021:09:27",
-            "issue":"A big issue",
-            "sdg":null,
-            "beneficiaries":"Some beneficiaries",
-            "address":"An address",
-            "state":"Some state",
-            "district":"Some district",
-            "city":"Some city",
-            "gram_panchayat":"village-governing institute in Indian village",
-            "latitude":123.123,
-            "longitude":456.456
-        },
+        "type":"field_data",
         "id":1,
+        "attributes":{
+            "media_type":"photo/video/etc",
+            "sector_id":645,
+            "comment":"Comment",
+            "address":"Address",
+            "media":"Media lnk",
+            "title":"Title",
+            "recorded_by":1234,
+            "ngo_id":152,
+            "sdg":"Goal",
+            "longitude":"456.5650000000",
+            "date":"2000-10-10",
+            "latitude":"90.5000000000"
+        },
         "links":{
-            "self":"/activity/1"
+            "self":"/field_data/1"
         }
     },
     "links":{
-        "self":"/activity/1"
+        "self":"/field_data/1"
     },
     "jsonapi":{
         "version":"1.0"
@@ -122,15 +109,15 @@ Content-Type: application/vnd.api+json
 
 ### Note:
 
-This example is an example of getting a list of activities. To get a particular activity, use the url /activity/\<int:id\> instead of /activities.
+This example is an example of getting a list of field_data entries. To get a particular field_data entry, use the url /field_data/\<int:id\> instead of /field_data.
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
-| GET | /activities | activity_many | Retrieves a list of all activities
+| GET | /field_data | field_data_many | Retrieves a list of all field_data
 
 #### Request:
 ```
-GET /activities HTTP/1.1
+GET /field_data HTTP/1.1
 Accept: application/vnd.api+json
 ```
 
@@ -142,54 +129,50 @@ Content-Type: application/vnd.api+json
 {
     "data":[
         {
-            "type":"activity",
-            "attributes":{
-                "ngo_id":"Unique id",
-                "name":"Activity Name",
-                "description":"Descriptive description",
-                "date":"2021:09:27",
-                "issue":"A big issue",
-                "sdg":null,
-                "beneficiaries":"Some beneficiaries",
-                "address":"An address",
-                "state":"Some state",
-                "district":"Some district",
-                "city":"Some city",
-                "gram_panchayat":"village-governing institute in Indian village",
-                "latitude":123.123,
-                "longitude":456.456
-            },
+            "type":"field_data",
             "id":1,
+            "attributes":{
+                "media_type":"photo/video/etc",
+                "sector_id":645,
+                "comment":"Comment",
+                "address":"Address",
+                "media":"Media lnk",
+                "title":"Title",
+                "recorded_by":1234,
+                "ngo_id":152,
+                "sdg":"Goal",
+                "longitude":"456.5650000000",
+                "date":"2000-10-10",
+                "latitude":"90.5000000000"
+            },
             "links":{
-                "self":"/activity/1"
+                "self":"/field_data/1"
             }
         },
         {
-            "type":"activity",
-            "attributes":{
-                "ngo_id":"Second Unique id",
-                "name":"Second Activity Name",
-                "description":"Second Descriptive description",
-                "date":"2021:09:27",
-                "issue":"Second  big issue",
-                "sdg":null,
-                "beneficiaries":"Second beneficiaries",
-                "address":"Second address",
-                "state":"Second state",
-                "district":"Second district",
-                "city":"Second city",
-                "gram_panchayat":"Second village-governing institute",
-                "latitude":123.123,
-                "longitude":456.456
-            },
+            "type":"field_data",
             "id":2,
+            "attributes":{
+                "media_type":"photo/video/etc",
+                "sector_id":645,
+                "comment":"Comment",
+                "address":"Address",
+                "media":"Media lnk",
+                "title":"Title",
+                "recorded_by":1234,
+                "ngo_id":152,
+                "sdg":"Goal",
+                "longitude":"456.5650000000",
+                "date":"2000-10-10",
+                "latitude":"90.5000000000"
+            },
             "links":{
-                "self":"/activity/2"
+                "self":"/field_data/2"
             }
         }
     ],
     "links":{
-        "self":"http://localhost:5000/activities"
+        "self":"http://localhost:5000/field_data"
     },
     "meta":{
         "count":2
@@ -205,33 +188,20 @@ Content-Type: application/vnd.api+json
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
-| PATCH | /activity/\<int:id\> | activity_one | Update an activity
+| PATCH | /field_data/\<int:id\> | field_data_one | Update a field_data entry
 
 ### Request:
 ```
-PATCH /activity/1 HTTP/1.0
+PATCH /field_data/1 HTTP/1.0
 Content-Type: application/vnd.api+json
 Accept: application/vnd.api+json
 
 {
     "data":{
-        "type":"activity",
+        "type":"field_data",
         "id":1,
         "attributes":{
-            "ngo_id":"Changed id",
-            "name":"Changed Activity Name",
-            "description":"Changed Descriptive description",
-            "date":"2021:09:27",
-            "issue":"Changed big issue",
-            "sdg":null,
-            "beneficiaries":"Changed beneficiaries",
-            "address":"Changed address",
-            "state":"Changed state",
-            "district":"Changed district",
-            "city":"Changed city",
-            "gram_panchayat":"Changed village-governing institute",
-            "latitude":123.123,
-            "longitude":456.456
+            "title":"THIS WAS CHANGED"
         }
     }
 }
@@ -244,30 +214,28 @@ Content-Type: application/vnd.api+json
 
 {
     "data":{
-        "type":"activity",
-        "attributes":{
-            "ngo_id":"Changed id",
-            "name":"Changed Activity Name",
-            "description":"Changed Descriptive description",
-            "date":"2021:09:27",
-            "issue":"Changed big issue",
-            "sdg":null,
-            "beneficiaries":"Changed beneficiaries",
-            "address":"Changed address",
-            "state":"Changed state",
-            "district":"Changed district",
-            "city":"Changed city",
-            "gram_panchayat":"Changed village-governing institute",
-            "latitude":123.123,
-            "longitude":456.456
-        },
+        "type":"field_data",
         "id":1,
+        "attributes":{
+            "media_type":"photo/video/etc",
+            "sector_id":645,
+            "comment":"Comment",
+            "address":"Address",
+            "media":"Media lnk",
+            "title":"THIS WAS CHANGED",
+            "recorded_by":1234,
+            "ngo_id":152,
+            "sdg":"Goal",
+            "longitude":"456.5650000000",
+            "date":"2000-10-10",
+            "latitude":"90.5000000000"
+        },
         "links":{
-            "self":"/activity/1"
+            "self":"/field_data/1"
         }
     },
     "links":{
-        "self":"/activity/1"
+        "self":"/field_data/1"
     },
     "jsonapi":{
         "version":"1.0"
@@ -281,11 +249,11 @@ Content-Type: application/vnd.api+json
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
-| DELETE | /activity/\<int:id\> | activity_one | Delete an activity
+| DELETE | /field_data/\<int:id\> | field_data_one | Delete an field_data entry
 
 ### Request:
 ```
-DELETE /activity/1 HTTP/1.1
+DELETE /field_data/1 HTTP/1.1
 Accept: application/vnd.api+json
 ```
 
@@ -308,9 +276,11 @@ Content-Type: application/vnd.api+json
 
 ## Attribute Tables:
 
-Reference the following table for attributes of the registration_number table, otherwise reference the datatypes in the data model. 
-
 <br/>
 
+### Note: Member has additional mobile_device_id and password fields.
 
-<img width="897" alt="Screen Shot 2021-09-12 at 15 30 12" src="https://user-images.githubusercontent.com/70539478/133004826-5c9d8312-e067-4418-97f4-5dc8986990a6.png">
+<img width="1283" alt="Screen Shot 2021-10-07 at 15 47 09" src="https://user-images.githubusercontent.com/70539478/136472836-0da6e844-ce13-4067-84ee-716fc90b3e09.png">
+
+
+

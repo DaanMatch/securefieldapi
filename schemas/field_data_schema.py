@@ -29,7 +29,8 @@ class FieldDataSchema(Schema):
             URL endpoint to all field_data for all NGOs
             
     sdg:
-        SDG class currently not implemented. Likeley to be removed.
+        Currently implemented as char in db. Might switch to type
+        enum.
     """
 
     class Meta:
@@ -37,21 +38,17 @@ class FieldDataSchema(Schema):
         self_view = 'field_data_one'
         self_view_kwargs = {'id': '<id>'}
         self_view_many = 'field_data_many'
-        
-    id = fields.Str(required=True)
-    ngo_id =  fields.Str(required=True)
-    recorded_by = fields.Str()
-    description = fields.Str()
+
+    id = fields.Integer()
+    ngo_id = fields.Integer(required=True)
+    recorded_by = fields.Integer()
     date = fields.Date()
-    sector_id = fields.Str()
-    sdg = EnumField(SDG)
-    beneficiaries = fields.Str()
     address = fields.Str()
-    state_id = fields.Str()
-    district_id = fields.Str()
     latitude = fields.Decimal()
     longitude = fields.Decimal()
     title = fields.Str()
     comment = fields.Str()
     media = fields.Str()
     media_type = fields.Str()
+    sector_id = fields.Integer()
+    sdg = fields.Str()

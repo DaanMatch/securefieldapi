@@ -9,6 +9,8 @@ class Partnership(db.Model):
 
     Important Attributes
     --------------------
+    dummy:
+        Primary key to satisfy ORM. Not in the actual database.
     ngo_id: 
         Foreign key for daanmatch_ngo.id.
     partner_id:
@@ -16,12 +18,11 @@ class Partnership(db.Model):
     daanmatch_ngo:
         Establish many-to-one relationship between daanmatch_ngo.id
         and partnership.ngo_id.
-    daanmatch_ngo_p:
+    daanmatch_ngo_partner:
         Establish many-to-one relationship between daanmatch_ngo.id
         and partnership.partner_id.
     """
-    # TODO: Consider different implementation
-    id = db.Column(db.Integer, primary_key = True)
+    dummy = db.Column(db.Integer, primary_key = True)
     ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'), 
         nullable = False)
     partner_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'), 
@@ -30,7 +31,9 @@ class Partnership(db.Model):
     sector_id = db.Column(db.Integer)
 
     daanmatch_ngo = db.relationship('DaanmatchNgo', 
-        backref=db.backref('partnership', uselist = True))
+        foreign_keys=[ngo_id],
+        backref=db.backref('partnership_self', uselist = True))
 
-    daanmatch_ngo_p = db.relationship('DaanmatchNgo', 
+    daanmatch_ngo_partner = db.relationship('DaanmatchNgo', 
+        foreign_keys=[partner_id],  
         backref=db.backref('partnership', uselist = True))
