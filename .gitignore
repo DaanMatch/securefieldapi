@@ -1,8 +1,6 @@
-.idea/
 .venv/
-flaskr/__pycache__/
-instance/
-flaskr/venv/
-.vscode/
-workspace.code-workspace
 *.pyc
+*.pyo
+__pycache__/
+.vscode/
+ngos.db
