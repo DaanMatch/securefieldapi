@@ -11,9 +11,6 @@ api.route(FieldDataMany, 'field_data_many', '/field_data')
 api.route(FieldDataOne, 'field_data_one', '/field_data/<int:id>')
 
 
-# Provides GET and POST to /member
-api.route(MemberMany, 'member_many', '/member')
-
 # Provides GET, PATCH, and DELETE to /member/<int:id>
 api.route(MemberOne, 'member_one', '/member/<int:id>')
 

@@ -1,4 +1,4 @@
-# Secure Field API Documentation (Draft)
+# __Secure Field API Documentation (Draft)__
 
 ### Note:
 
@@ -6,36 +6,133 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 
 <br/>
 
-## Currently Implements:
+## __Currently Implements:__
 
 | URL | Method | Endpoint | Action | Notes |
-|--|--|--|--|--|
+| -- | -- | -- | -- | -- |
 | /field_data | GET | field_data_many | Retrieve a list of all field_data entries |
 | /field_data | POST | field_data_many | Creates a field_data entry |
 | /field_data/\<int:id\> | GET | field_data_one | Retrieve details of a field_data entry |
-| /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data |
-| /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data | Need to create a workaround to prevent malicious deletion
-| /member | POST | member_many | Creates an member | Might not need?
+| /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data entry |
+| /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data entry | Need to create a workaround to prevent malicious deletion
 | /member/\<int:id\> | GET | member_one | Retrieve details of a member | Allow user to see their own info (except password)
-| /member/\<int:id\> | PATCH | member_one | Updates a member | Use this to let members already in the database set a password. Right now this can still update any all member fields.
+| /member/\<int:id\> | PATCH | member_one | Updates a member's password | Use this to let members already in the database set a password. Nothing else can be updated.
 
 <br/><br/><br/><br/>
 
-## Need To Implement:
+## __Need To Implement:__
+
+| URL | Method | Endpoint | Action | Notes |
+| -- | -- | -- | -- | -- |
+| -- | -- | -- | -- | -- |
+
+<br/><br/><br/><br/>
+
+# __Methods:__
+
+## __member (GET):__
 
 | URL | Method | Endpoint | Action | Notes |
 |--|--|--|--|--|
+| /member/\<int:id\> | GET | member_one | Retrieve details of a member | Allow user to see their own info (except password)
+
+### Request:
+```
+GET /member/1 HTTP/1.0
+Accept: application/vnd.api+json
+```
+
+### Response:
+```
+HTTP/1.0 200 OK
+Content-Type: application/vnd.api+json
+
+{
+    "data":{
+        "type":"member",
+        "id":1,
+        "attributes":{
+            "mobile":"999999999",
+            "name":"A Name",
+            "mobile_device_id":"9596 4569 9455 5",
+            "email":"email@email.com"
+        },
+        "links":{
+            "self":"/member/1"
+        }
+    },
+    "links":{
+        "self":"/member/1"
+    },
+    "jsonapi":{
+        "version":"1.0"
+    }
+}
+```
+
+<br/><br/><br/><br/>
+
+## __member (PATCH):__
+
+| URL | Method | Endpoint | Action | Notes |
+|--|--|--|--|--|
+| /member/\<int:id\> | PATCH | member_one | Updates a member's password | Use this to let members already in the database set a password. Nothing else can be updated.
+
+### Request:
+```
+PATCH /member/1 HTTP/1.0
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
+
+{
+    "data":{
+        "type":"member",
+        "id":1,
+        "attributes":{
+            "password":"new_password"
+        }
+    }
+}
+```
+
+### Response:
+Note: the password is not returned.
+```
+HTTP/1.0 200 OK
+Content-Type: application/vnd.api+json
+
+{
+    "data":{
+        "type":"member",
+        "attributes":{
+            "name":"A Name",
+            "email":"email@email.com",
+            "mobile":"999999999",
+            "mobile_device_id":"9596 4569 9455 5"
+        },
+        "id":1,
+        "links":{
+            "self":"/member/1"
+        }
+    },
+    "links":{
+        "self":"/member/1"
+    },
+    "jsonapi":{
+        "version":"1.0"
+    }
+}
+```
+
 
 
 <br/><br/><br/><br/>
 
-### Note:
 
-The following examples hold the same pattern for all the routes defined above. You just need to substitute the correct URL, type, and attributes (type and attributes refer to the keys in the JSON request body). Lists of attributes for each table will be at the end of the documentation.
 
-<br/>
 
-## Example 1 (POST):
+
+## __field_data (POST):__
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
@@ -106,7 +203,7 @@ Content-Type: application/vnd.api+json
 
 <br/><br/><br/><br/>
 
-## Example 2 (GET):
+## __field_data (GET):__
 
 ### Note:
 
@@ -118,7 +215,7 @@ This example is an example of getting a list of field_data entries. To get a par
 
 #### Request:
 ```
-GET /field_data HTTP/1.1
+GET /field_data HTTP/1.0
 Accept: application/vnd.api+json
 ```
 
@@ -185,7 +282,7 @@ Content-Type: application/vnd.api+json
 ```
 <br/><br/><br/><br/>
 
-## Example 3 (PATCH):
+## __field_data (PATCH):__
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
@@ -246,7 +343,7 @@ Content-Type: application/vnd.api+json
 
 <br/><br/><br/><br/>
 
-## Example 4 (DELETE):
+## __field_data (DELETE):__
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
@@ -254,7 +351,7 @@ Content-Type: application/vnd.api+json
 
 ### Request:
 ```
-DELETE /field_data/1 HTTP/1.1
+DELETE /field_data/1 HTTP/1.0
 Accept: application/vnd.api+json
 ```
 
@@ -279,7 +376,9 @@ Content-Type: application/vnd.api+json
 
 <br/>
 
-### Note: Member has additional mobile_device_id and password fields.
+### __Note: Member has additional mobile_device_id and password fields.__
+
+<br/>
 
 <img width="1283" alt="Screen Shot 2021-10-07 at 15 47 09" src="https://user-images.githubusercontent.com/70539478/136472836-0da6e844-ce13-4067-84ee-716fc90b3e09.png">
 

@@ -20,7 +20,6 @@ class ResourceManager(Resource_________):
 from .field_data_many import *
 from .field_data_one import *
 
-from .member_many import *
 from .member_one import *
 
 from .daanmatch_ngo_many import *
