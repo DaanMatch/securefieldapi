@@ -1,5 +1,6 @@
 from api import api
 from resource_managers import *
+from resource_managers.member_login import MemberLogin
 
 
 # Format: api.route(<Resource manager>, <endpoint name>, <url_1>, <url_2>, ...)
@@ -16,6 +17,8 @@ api.route(MemberMany, 'member_many', '/member')
 # Provides GET, PATCH, and DELETE to /member/<int:id>
 api.route(MemberOne, 'member_one', '/member/<int:id>')
 
+# Provides POST to /login
+api.route(MemberLogin, 'member_login', '/login')
 
 
 #########
