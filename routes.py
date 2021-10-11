@@ -10,7 +10,6 @@ api.route(FieldDataMany, 'field_data_many', '/field_data')
 # Provides GET, PATCH, and DELETE to /field_data/<int:id>
 api.route(FieldDataOne, 'field_data_one', '/field_data/<int:id>')
 
-
 # Provides GET and POST to /member
 api.route(MemberMany, 'member_many', '/member')
 
