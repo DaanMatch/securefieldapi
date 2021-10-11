@@ -4,8 +4,8 @@
 
 
 ## To - Dos
-- [ ] Add `mobile_device_id`, `password` column to `member` model
-- [ ] Implement a login route to register a new user
+- [X] Add `mobile_device_id`, `password` column to `member` model
+- [X] Implement a login route to register a new user
 - [ ] Choose a hashing algorithm for the password (create a documentation on this)
 - Login exception cases
     - [ ] Unique `mobile_device_id` : currently the member gets added regardless of `mobile_device_id`
@@ -13,6 +13,9 @@
 
 ## To - Discuss
 - Which to use as a main feature for verification? `password` or `mobile_device_id`?
+    - Use both?: `mobile_device_id` and `password` match -> existing user
+- Should separate signup (new user), login (returning user) route?
+- JWT token as a header
 - `member` -- `field`: column `recorded_by` refers to the PK in `member` table but the data types are different
 - Difference between `people` and `member`
 
