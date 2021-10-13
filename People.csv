@@ -1,6 +1,6 @@
 CREATE TABLE People_csv (
-Member.id VARCHAR(255) NULL,
-NGO.id VARCHAR(255) NULL,
+Member.id INT NULL,
+NGO.id INIT NULL,
 Designation VARCHAR(255) NULL
 );
 INSERT INTO People_csv (Member.id,NGO.id,Designation) VALUES 
