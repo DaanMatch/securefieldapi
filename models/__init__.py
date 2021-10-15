@@ -19,13 +19,6 @@ class TableName(db.Model):
 """
 
 from .daanmatch_ngo import *
-from .district import *
 from .field_data import *
-from .finance import *
 from .member import *
-from .partnership import *
 from .people import *
-from .registration_number import *
-from .registration_office import *
-from .sector import *
-from .state_and_ut import *

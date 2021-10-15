@@ -16,42 +16,7 @@ api.route(MemberOne, 'member_one', '/member/<int:id>')
 
 
 
-#########
-# Below routes will likely be removed in the future
-#########
-# Provides GET and POST to /daanmatch_ngos
-api.route(DaanmatchNgoMany, 'daanmatch_ngo_many', '/daanmatch_ngos')
 
-# Provides GET, PATCH, and DELETE to /daanmatch_ngo/<int:id>
-api.route(DaanmatchNgoOne, 'daanmatch_ngo_one', '/daanmatch_ngo/<int:id>')
-
-# Provides GET, POST, PATCH, and DELETE to 
-# /daanmatch_ngo/<int:id>/relationships/registration_number
-api.route(DaanmatchNgoRegistrationNumber, 
-    'daanmatch_ngo_registration_number', 
-    '/daanmatch_ngo/<int:id>/relationships/registration_number')
-
-# Provides GET and POST to /registration_numbers
-api.route(RegistrationNumberMany, 'registration_number_many', 
-    '/registration_numbers')
-
-# Provides GET, PATCH, and DELETE to /registration_number/<int:id>
-api.route(RegistrationNumberOne, 'registration_number_one', 
-    '/registration_number/<int:id>')
-
-# Provides GET, POST, PATCH, and DELETE to 
-# /registration_number/<int:id>/relationships/registration_office
-api.route(RegistrationNumberRegistrationOffice, 
-    'registration_number_registration_office', 
-    '/registration_number/<int:id>/relationships/registration_office')
-    
-# Provides GET and POST to /registration_offices
-api.route(RegistrationOfficeMany, 'registration_office_many', 
-    '/registration_offices')
-
-# Provides GET, PATCH, and DELETE to /registration_office/<int:id>
-api.route(RegistrationOfficeOne, 'registration_office_one', 
-    '/registration_office/<int:id>')
 
 
 

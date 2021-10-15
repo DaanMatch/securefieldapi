@@ -1,51 +1,3 @@
-# __member Tests__
-
-__Note: Use the ngo.db file in member_preloaded_db folder to run these tests.__
-
-<br/>
-<br/>
-<br/>
-
-## Get a member:
-### Request:
-```
-curl -i -X GET  http://localhost:5000/member/1
-```
-
-### Response:
-```
-HTTP/1.0 200 OK
-Content-Type: application/vnd.api+json
-Content-Length: 257
-Server: Werkzeug/2.0.1 Python/3.9.6
-Date: Fri, 08 Oct 2021 23:00:32 GMT
-
-{"data": {"type": "member", "id": 1, "attributes": {"mobile": "999999999", "name": "A Name", "mobile_device_id": "9596 4569 9455 5", "email": "email@email.com"}, "links": {"self": "/member/1"}}, "links": {"self": "/member/1"}, "jsonapi": {"version": "1.0"}}
-```
-
-
-
-## Update member
-### Request
-```
-curl -i -X PATCH -H 'Content-Type: application/vnd.api+json' -d '{"data":{"type":"member", "id":1, "attributes":{"password":"new_password"}}}' http://localhost:5000/member/1
-```
-
-### Response
-```
-HTTP/1.0 200 OK
-Content-Type: application/vnd.api+json
-Content-Length: 257
-Server: Werkzeug/2.0.1 Python/3.9.6
-Date: Fri, 08 Oct 2021 23:07:00 GMT
-
-{"data": {"type": "member", "attributes": {"mobile_device_id": "9596 4569 9455 5", "mobile": "999999999", "name": "A Name", "email": "email@email.com"}, "id": 1, "links": {"self": "/member/1"}}, "links": {"self": "/member/1"}, "jsonapi": {"version": "1.0"}}
-```
-
-<br/>
-<br/>
-<br/>
-
 # __field_data Tests__
 
 ## Post a field_data
@@ -116,3 +68,56 @@ Date: Fri, 08 Oct 2021 00:08:09 GMT
 
 {"data": {"type": "field_data", "attributes": {"media": "Media lnk", "date": "2000-10-10", "latitude": "90.5000000000", "comment": "Comment", "sector_id": 645, "media_type": "photo/video/etc", "recorded_by": 1234, "longitude": "456.5650000000", "sdg": "Goal", "title": "THIS WAS CHANGED", "address": "Address", "ngo_id": 152}, "id": 1, "links": {"self": "/field_data/1"}}, "links": {"self": "/field_data/1"}, "jsonapi": {"version": "1.0"}}
 ```
+
+
+<br/>
+<br/>
+<br/>
+
+
+# __member Tests__
+
+__Note: Use the ngo.db file in member_preloaded_db folder to run these tests.__
+
+<br/>
+<br/>
+<br/>
+
+## Get a member:
+### Request:
+```
+curl -i -X GET  http://localhost:5000/member/1
+```
+
+### Response:
+```
+HTTP/1.0 200 OK
+Content-Type: application/vnd.api+json
+Content-Length: 257
+Server: Werkzeug/2.0.1 Python/3.9.6
+Date: Fri, 08 Oct 2021 23:00:32 GMT
+
+{"data": {"type": "member", "id": 1, "attributes": {"mobile": "999999999", "name": "A Name", "mobile_device_id": "9596 4569 9455 5", "email": "email@email.com"}, "links": {"self": "/member/1"}}, "links": {"self": "/member/1"}, "jsonapi": {"version": "1.0"}}
+```
+
+
+
+## Update member
+### Request
+```
+curl -i -X PATCH -H 'Content-Type: application/vnd.api+json' -d '{"data":{"type":"member", "id":1, "attributes":{"password":"new_password"}}}' http://localhost:5000/member/1
+```
+
+### Response
+```
+HTTP/1.0 200 OK
+Content-Type: application/vnd.api+json
+Content-Length: 257
+Server: Werkzeug/2.0.1 Python/3.9.6
+Date: Fri, 08 Oct 2021 23:07:00 GMT
+
+{"data": {"type": "member", "attributes": {"mobile_device_id": "9596 4569 9455 5", "mobile": "999999999", "name": "A Name", "email": "email@email.com"}, "id": 1, "links": {"self": "/member/1"}}, "links": {"self": "/member/1"}, "jsonapi": {"version": "1.0"}}
+```
+
+
+

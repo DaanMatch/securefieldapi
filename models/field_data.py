@@ -13,7 +13,7 @@ class FieldData(db.Model):
         Primary key in the table.
     ngo_id: 
         Not unique b/c an NGO might can have many field_data.
-        This is also the foreign key for the operation table.
+        This is also the foreign key for the daanmatch_ngo table.
     sdg:
         Sustainable development goals. 
         This field might be removed later on.
@@ -22,8 +22,6 @@ class FieldData(db.Model):
         Creates a relationship between daanmatch_ngo and field_data
     member:
         Creates a relationship between member and field_data
-    sector:
-        Creates a relationship between sector and field_data
     """
     
     id = db.Column(db.Integer, primary_key=True)
@@ -38,14 +36,11 @@ class FieldData(db.Model):
     comment = db.Column(db.Text)
     media = db.Column(db.Text)
     media_type = db.Column(db.Text)
-    sector_id = db.Column(db.Integer, db.ForeignKey('sector.id'))
+    sector_id = db.Column(db.Integer)
     sdg = db.Column(db.CHAR)
 
     daanmatch_ngo = db.relationship('DaanmatchNgo', 
         backref=db.backref('field_data', uselist = False))
 
     member = db.relationship('Member', 
-        backref=db.backref('field_data', uselist = False))
-
-    sector = db.relationship('Sector', 
         backref=db.backref('field_data', uselist = False))

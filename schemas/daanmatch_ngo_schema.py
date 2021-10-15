@@ -24,11 +24,6 @@ class DaanmatchNgoSchema(Schema):
             Fields for self_view to pass to URL
         self_view_many:
             URL endpoint to all daanmatch_ngos
-
-    registration_number:
-        Establishes a one-to-one relationship between daanmatch_ngo and 
-        registration_number because registration_number.ngo_id is 
-        unique (Normally many=False specifies many-to-one)
     """
 
     class Meta:
@@ -55,13 +50,3 @@ class DaanmatchNgoSchema(Schema):
     parttime_staff = fields.Integer()
     volunteers = fields.Integer()
     partner_ids = fields.Str()
-
-    # These args function similarly to those in the Meta class
-    registration_number = Relationship(
-        self_view = 'daanmatch_ngo_registration_number',
-        self_view_kwargs = {'id': '<id>'},
-        related_view = 'registration_number_one',
-        related_view_kwargs={'id': '<id>'},
-        many = False,
-        schema = 'RegistrationNumberSchema',
-        type_ = 'registration_number')
