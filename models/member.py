@@ -2,7 +2,7 @@ from db import db
 
 class Member(db.Model):
     """
-    Defines the finance member schema. All db.Column 
+    Defines the member schema. All db.Column 
     attributes represent a column in the table.
     ...
 

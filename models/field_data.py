@@ -43,4 +43,4 @@ class FieldData(db.Model):
         backref=db.backref('field_data', uselist = False))
 
     member = db.relationship('Member', 
-        backref=db.backref('field_data', uselist = False))
+        backref=db.backref('field_data', uselist = True))
