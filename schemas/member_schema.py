@@ -45,8 +45,8 @@ class MemberSchema(Schema):
 
     # args similar to meta class attributes
     field_data = Relationship(
-        self_view = 'member_field_data',
-        self_view_kwargs = {'id': '<id>'},
+        # self_view = 'member_field_data',
+        # self_view_kwargs = {'id': '<id>'},
         related_view = 'field_data_one',
         related_view_kwargs = {'id': '<id>'},
         many = True, 
