@@ -14,7 +14,7 @@ Content-Length: 288
 Server: Werkzeug/2.0.1 Python/3.9.6      
 Date: Fri, 08 Oct 2021 02:18:45 GMT      
 
-{"data": {"type": "member", "attributes": {"mobile_device_id": null, "mobile": null, "email": null, "name": null}, "relationships": {"field_data": {"links": {"self": "/member/3/field_data", "related": "/field_data/3"}}}, "id": 3, "links": {"self": "/member/3"}}, "links": {"self": "/member/3"}, "jsonapi": {"version": "1.0"}}
+{"data": {"type": "member", "attributes": {"data_manager": null, "mobile": null, "email": null, "name": null}, "relationships": {"field_data": {"links": {"self": "/member/3/field_data", "related": "/field_data/3"}}}, "id": 3, "links": {"self": "/member/3"}}, "links": {"self": "/member/3"}, "jsonapi": {"version": "1.0"}}
 ```
 
 <br/>
@@ -121,7 +121,7 @@ Content-Length: 257
 Server: Werkzeug/2.0.1 Python/3.9.6
 Date: Fri, 08 Oct 2021 23:00:32 GMT
 
-{"data": {"type": "member", "id": 1, "attributes": {"mobile": "999999999", "name": "A Name", "mobile_device_id": "9596 4569 9455 5", "email": "email@email.com"}, "links": {"self": "/member/1"}}, "links": {"self": "/member/1"}, "jsonapi": {"version": "1.0"}}
+{"data": {"type": "member", "id": 1, "attributes": {"mobile": "999999999", "name": "A Name", "data_manager": "9596 4569 9455 5", "email": "email@email.com"}, "links": {"self": "/member/1"}}, "links": {"self": "/member/1"}, "jsonapi": {"version": "1.0"}}
 ```
 
 
@@ -140,7 +140,7 @@ Content-Length: 257
 Server: Werkzeug/2.0.1 Python/3.9.6
 Date: Fri, 08 Oct 2021 23:07:00 GMT
 
-{"data": {"type": "member", "attributes": {"mobile_device_id": "9596 4569 9455 5", "mobile": "999999999", "name": "A Name", "email": "email@email.com"}, "id": 1, "links": {"self": "/member/1"}}, "links": {"self": "/member/1"}, "jsonapi": {"version": "1.0"}}
+{"data": {"type": "member", "attributes": {"data_manager": "9596 4569 9455 5", "mobile": "999999999", "name": "A Name", "email": "email@email.com"}, "id": 1, "links": {"self": "/member/1"}}, "links": {"self": "/member/1"}, "jsonapi": {"version": "1.0"}}
 ```
 
 

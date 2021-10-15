@@ -1,6 +1,6 @@
 ## Notes: 
 * Files db.py and api.py are used to prevent circular imports.
-* Currently implements API for `field_data` tables of the data model. 
+* Currently implements API for `field_data` and `member` tables of the data model. 
 
 ## TODO:
 * Clean up unnecessary code once core functionality inplace.
