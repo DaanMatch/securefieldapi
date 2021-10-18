@@ -1,5 +1,5 @@
 
-## Post a member __FOR TESTING PURPOSES ONLY NOT FUNCTIONAL IN PRODUCTION__
+## Post a member __FOR TESTING PURPOSES ONLY NOT FOR PRODUCTION__
 ### Request
 ```
 curl -i -X POST -H 'Content-Type: application/vnd.api+json' -d '{"data":{"type":"member", "attributes":{}}}' http://localhost:5000/member
