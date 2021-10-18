@@ -1,8 +1,10 @@
+from sqlalchemy.orm.exc import NoResultFound
 from flask_rest_jsonapi import ResourceList
+from flask_rest_jsonapi.exceptions import ObjectNotFound
 
 from db import db
 from schemas import FieldDataSchema
-from models import FieldData
+from models import FieldData, Member
 
 class FieldDataMany(ResourceList):
     """

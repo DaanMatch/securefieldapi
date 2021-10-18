@@ -1,9 +1,9 @@
 from marshmallow_jsonapi import fields
-from marshmallow_jsonapi.flask import Schema
+from marshmallow_jsonapi.flask import Schema, Relationship
 
 class MemberSchema(Schema):
     """
-    Acts as the abstraction layer between the field_data table and user. 
+    Acts as the abstraction layer between the member table and user. 
     This class allows us to control what fields 
     to accept from/sent back to the user.
 
@@ -19,13 +19,16 @@ class MemberSchema(Schema):
         type_: (Required)
             Specifies the type.
         self_view:
-            URL endpoint to an individual NGO's field_data
+            URL endpoint to an individual member
         self_view_kwargs:
             Fields for self_view to pass to URL
             
-    sdg:
-        Currently implemented as char in db. Might switch to type
-        enum.
+    password:
+        Only allowed to set pw (load_only)
+    field_data:
+
+    other fields:
+        Read only (dump_only)
     """
 
     class Meta:
@@ -34,8 +37,18 @@ class MemberSchema(Schema):
         self_view_kwargs = {'id': '<id>'}
 
     id = fields.Integer()
-    name = fields.Str()
-    mobile = fields.Str()
-    email = fields.Str()
-    mobile_device_id = fields.Str()
+    name = fields.Str(dump_only=True)
+    mobile = fields.Str(dump_only=True)
+    email = fields.Str(dump_only=True)
+    data_manager = fields.Str(dump_only=True)
     password = fields.Str(load_only=True)
+
+    # args similar to meta class attributes
+    field_data = Relationship(
+        # self_view = 'member_field_data',
+        # self_view_kwargs = {'id': '<id>'},
+        related_view = 'field_data_one',
+        related_view_kwargs = {'id': '<id>'},
+        many = True, 
+        schema = 'FieldDataSchema',
+        type_ = 'field_data')

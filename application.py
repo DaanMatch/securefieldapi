@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 
 # Set up SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ngos.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Daanmatch.db'
 db.init_app(app) # delayed initialization
 
 

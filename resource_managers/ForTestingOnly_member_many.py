@@ -1,15 +1,14 @@
 from flask_rest_jsonapi import ResourceList
 
 from db import db
-from schemas import DaanmatchNgoSchema
-from models import DaanmatchNgo
+from schemas import MemberSchema
+from models import Member
 
-class DaanmatchNgoMany(ResourceList):
+class MemberMany(ResourceList):
     """
     Inheriting from ResourceList creates GET (multiple) and POST 
-    methods for daanmatch_ngo.
+    methods for field_data. We only need POST for now. 
     ...
-
     Attributes
     ----------
     schema:
@@ -19,6 +18,7 @@ class DaanmatchNgoMany(ResourceList):
         session and model are required params.
     """
 
-    schema = DaanmatchNgoSchema
+    schema = MemberSchema
     data_layer = {'session': db.session,
-                  'model': DaanmatchNgo}
+                  'model': Member}
+    methods = ['POST']
