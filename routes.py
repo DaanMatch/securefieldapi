@@ -13,14 +13,11 @@ api.route(FieldDataMany, 'field_data_many',
 # Provides GET, PATCH, and DELETE to /field_data/<int:id>
 api.route(FieldDataOne, 'field_data_one', '/field_data/<int:id>')
 
-<<<<<<< HEAD
 # Provides GET and POST to /member
 api.route(MemberMany, 'member_many', '/member')
 
 # Provides GET, PATCH, and DELETE to /member/<int:id>
-=======
 # Provides GET, PATCH to /member/<int:id>
->>>>>>> json
 api.route(MemberOne, 'member_one', '/member/<int:id>')
 
 # Provides POST to /login
