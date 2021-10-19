@@ -1,5 +1,5 @@
 from marshmallow_jsonapi import fields
-from marshmallow_jsonapi.flask import Schema
+from marshmallow_jsonapi.flask import Schema, Relationship
 
 class MemberSchema(Schema):
     """
@@ -25,6 +25,8 @@ class MemberSchema(Schema):
             
     password:
         Only allowed to set pw (load_only)
+    field_data:
+
     other fields:
         Read only (dump_only)
     """
@@ -38,5 +40,15 @@ class MemberSchema(Schema):
     name = fields.Str(dump_only=True)
     mobile = fields.Str(dump_only=True)
     email = fields.Str(dump_only=True)
-    mobile_device_id = fields.Str(dump_only=True)
+    data_manager = fields.Str(dump_only=True)
     password = fields.Str(load_only=True)
+
+    # args similar to meta class attributes
+    field_data = Relationship(
+        # self_view = 'member_field_data',
+        # self_view_kwargs = {'id': '<id>'},
+        related_view = 'field_data_one',
+        related_view_kwargs = {'id': '<id>'},
+        many = True, 
+        schema = 'FieldDataSchema',
+        type_ = 'field_data')

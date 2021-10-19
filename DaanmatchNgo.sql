@@ -1,10 +1,10 @@
-CREATE TABLE NGOS (
-NGO.id INT NULL,
-NGOName VARCHAR(255) NULL,
-EmailAddress VARCHAR(255) NULL,
-Phone VARCHAR(255) NULL
+CREATE TABLE daanmatch_ngo (
+id INT NULL,
+[name] VARCHAR(255) NULL,
+email VARCHAR(255) NULL,
+mobile VARCHAR(255) NULL
 );
-INSERT INTO NGOS (NGO.id,NGOName,EmailAddress,Phone) VALUES 
+INSERT INTO daanmatch_ngo (id,[name],email,mobile) VALUES 
 ( 1,'ABHAY SMRITI SEWA SANSTHAN','abhaysewa@gmail.com
 ','9631986537' ),
 ( 2,'AIBI RESEARCH','aibi.research@gmail.com

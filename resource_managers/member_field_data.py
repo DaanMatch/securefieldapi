@@ -1,13 +1,13 @@
 from flask_rest_jsonapi import ResourceRelationship
 
 from db import db
-from schemas import DaanmatchNgoSchema
-from models import DaanmatchNgo
+from schemas import MemberSchema
+from models import Member
 
-class DaanmatchNgoRegistrationNumber(ResourceRelationship):
+class MemberFieldData(ResourceRelationship):
     """
-    Inheriting from ResourceRelationship creates GET, POST, PATCH, and 
-    DELETE methods for a daanmatch_ngo's registration_number.
+    Inheriting from ResourceRelationship creates POST, GET, PATCH, and DELETE 
+    methods for field_data. 
     ...
 
     Attributes
@@ -17,8 +17,11 @@ class DaanmatchNgoRegistrationNumber(ResourceRelationship):
     data_layer:
         Implements CRUD interface for objects and relationships. 
         session and model are required params.
+    methods:
+        Selects which methods are available 
     """
 
-    schema = DaanmatchNgoSchema
+    schema = MemberSchema
     data_layer = {'session': db.session,
-                  'model': DaanmatchNgo}
+                  'model': Member}
+    methods = ['POST', 'GET']

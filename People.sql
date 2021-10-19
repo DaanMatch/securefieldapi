@@ -1,9 +1,9 @@
-CREATE TABLE People_csv (
-Member.id INT NULL,
-NGO.id INIT NULL,
-Designation VARCHAR(255) NULL
+CREATE TABLE people (
+member_id INT NULL,
+ngo_id INT NULL,
+designation VARCHAR(255) NULL
 );
-INSERT INTO People_csv (Member.id,NGO.id,Designation) VALUES 
+INSERT INTO people (member_id,ngo_id,designation) VALUES 
 ( '1','1','{ Roles: "OM", "DM"}' ),
 ( '2','2','{ Roles: "OM", "DM"}' ),
 ( '7','3','{ Roles: "OM", "DM"}' ),
