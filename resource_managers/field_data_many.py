@@ -5,6 +5,7 @@ from flask_rest_jsonapi.exceptions import ObjectNotFound
 from db import db
 from schemas import FieldDataSchema
 from models import FieldData, Member
+from auth.token_required import token_required
 
 class FieldDataMany(ResourceList):
     """
@@ -24,3 +25,4 @@ class FieldDataMany(ResourceList):
     schema = FieldDataSchema
     data_layer = {'session': db.session,
                   'model': FieldData}
+    decorators = (token_required,)
