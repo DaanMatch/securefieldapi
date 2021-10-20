@@ -8,7 +8,7 @@ from resource_managers import *
 # Provides GET and POST to 
 # /member/<int:id>/field_data and /field_data
 api.route(FieldDataMany, 'field_data_many', 
-    '/member/<int:id>/field_data')
+    '/field_data', '/member/<int:id>/field_data')
 
 # Provides GET, PATCH, and DELETE to /field_data/<int:id>
 api.route(FieldDataOne, 'field_data_one', '/field_data/<int:id>')
