@@ -2,7 +2,7 @@
 
 ### Note:
 
-This version of the documentation is neither complete nor robust. It (hopefully) contains enough information to help you understand how to get started using/working on the current version of the API. This documentation and the API itself is subject to change.
+This version of the documentation is neither complete nor robust. It (hopefully) contains enough information to help you understand how to get started using/working on the current version of the API. Both the documentation and the API itself are subject to change.
 
 <br/>
 
@@ -14,8 +14,7 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 | /member/\<int:id\>/field_data | POST | field_data_many | Creates a field_data entry associated with a member |
 | /field_data/\<int:id\> | GET | field_data_one | Retrieve details of a field_data entry |
 | /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data entry |
-| /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data entry | Need to create a workaround to prevent malicious deletion
-| /member/\<int:id\> | GET | member_one | Retrieve details of a member | Allow user to see their own info (except password)
+| /member/\<int:id\> | GET | member_one | Retrieve details of a member | (except password)
 | /member/\<int:id\> | PATCH | member_one | Updates a member's password | Use this to let members already in the database set a password. Nothing else can be updated.
 
 <br/><br/><br/><br/>
@@ -24,7 +23,7 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 
 | URL | Method | Endpoint | Action | Notes |
 | -- | -- | -- | -- | -- |
-| -- | -- | -- | -- | -- |
+| /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data entry | Need to create a workaround to prevent malicious deletion
 
 <br/><br/><br/><br/>
 

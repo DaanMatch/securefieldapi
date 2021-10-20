@@ -127,7 +127,7 @@ Date: Fri, 08 Oct 2021 23:00:32 GMT
 
 
 
-## Update member
+## Update member (Create Password)
 ### Request
 ```
 curl -i -X PATCH -H 'Content-Type: application/vnd.api+json' -d '{"data":{"type":"member", "id":1, "attributes":{"password":"new_password"}}}' http://localhost:5000/member/1
