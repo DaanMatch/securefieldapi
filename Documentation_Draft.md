@@ -10,8 +10,8 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 
 | URL | Method | Endpoint | Action | Notes |
 | -- | -- | -- | -- | -- |
-| /field_data | GET | field_data_many | Retrieve a list of all field_data entries |
-| /field_data | POST | field_data_many | Creates a field_data entry |
+| /member/\<int:id\>/field_data | GET | field_data_many | Retrieve a list of all field_data entries associated with a member |
+| /member/\<int:id\>/field_data | POST | field_data_many | Creates a field_data entry associated with a member |
 | /field_data/\<int:id\> | GET | field_data_one | Retrieve details of a field_data entry |
 | /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data entry |
 | /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data entry | Need to create a workaround to prevent malicious deletion
@@ -136,11 +136,11 @@ Content-Type: application/vnd.api+json
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
-| POST | /field_data | field_data_many | Create a field_data entry
+| POST | /member/\<int:id\>/field_data | field_data_many | Create a field_data entry associated with a member. The field_data.recorded_by field is automatically filled.
 
 ### Request:
 ```
-POST /field_data HTTP/1.0
+POST /member/3/field_data HTTP/1.0
 Content-Type: application/vnd.api+json
 Accept: application/vnd.api+json
 
@@ -148,18 +148,17 @@ Accept: application/vnd.api+json
     "data":{
         "type":"field_data",
         "attributes":{
-            "ngo_id":152,
-            "recorded_by":1234,
+            "ngo_id":1,
             "date":"2000-10-10",
-            "address":"Address",
+            "address":"NewAddress",
             "latitude":90.5,
             "longitude":456.565,
-            "title":"Title",
-            "comment":"Comment",
-            "media":"Media lnk",
-            "media_type":"photo/video/etc",
+            "title":"NewTitle",
+            "comment":"NewComment",
+            "media":"New Media lnk",
+            "media_type":"new photo/video/etc",
             "sector_id":645,
-            "sdg":"Goal"
+            "sdg":"NewGoal"
         }
     }
 }
@@ -173,27 +172,27 @@ Content-Type: application/vnd.api+json
 {
     "data":{
         "type":"field_data",
-        "id":1,
         "attributes":{
-            "media_type":"photo/video/etc",
             "sector_id":645,
-            "comment":"Comment",
-            "address":"Address",
-            "media":"Media lnk",
-            "title":"Title",
-            "recorded_by":1234,
-            "ngo_id":152,
-            "sdg":"Goal",
             "longitude":"456.5650000000",
+            "comment":"NewComment",
+            "latitude":"90.5000000000",
+            "media":"New Media lnk",
             "date":"2000-10-10",
-            "latitude":"90.5000000000"
+            "ngo_id":1,
+            "address":"NewAddress",
+            "title":"NewTitle",
+            "sdg":"NewGoal",
+            "recorded_by":3,
+            "media_type":"new photo/video/etc"
         },
+        "id":6,
         "links":{
-            "self":"/field_data/1"
+            "self":"/field_data/6"
         }
     },
     "links":{
-        "self":"/field_data/1"
+        "self":"/field_data/6"
     },
     "jsonapi":{
         "version":"1.0"
@@ -207,15 +206,15 @@ Content-Type: application/vnd.api+json
 
 ### Note:
 
-This example is an example of getting a list of field_data entries. To get a particular field_data entry, use the url /field_data/\<int:id\> instead of /field_data.
+This example is an example of getting a list of field_data entries associated with a user. To get a particular field_data entry, use the url /field_data/\<int:id\> instead of /field_data.
 
 | Method | URL | Endpoint | Action
 |-|-|-|-
-| GET | /field_data | field_data_many | Retrieves a list of all field_data
+| GET | /member/\<int:id\>/field_data | field_data_many | Retrieves a list of all field_data for a particular member
 
 #### Request:
 ```
-GET /field_data HTTP/1.0
+GET /member/1/field_data HTTP/1.0
 Accept: application/vnd.api+json
 ```
 
@@ -228,44 +227,44 @@ Content-Type: application/vnd.api+json
     "data":[
         {
             "type":"field_data",
-            "id":1,
             "attributes":{
-                "media_type":"photo/video/etc",
-                "sector_id":645,
-                "comment":"Comment",
-                "address":"Address",
-                "media":"Media lnk",
-                "title":"Title",
-                "recorded_by":1234,
-                "ngo_id":152,
                 "sdg":"Goal",
+                "comment":"Comment",
+                "latitude":"90.5000000000",
+                "title":"Title",
+                "ngo_id":1,
+                "recorded_by":1,
+                "media_type":"photo/video/etc",
                 "longitude":"456.5650000000",
                 "date":"2000-10-10",
-                "latitude":"90.5000000000"
+                "sector_id":645,
+                "address":"Address",
+                "media":"Media lnk"
             },
+            "id":1,
             "links":{
                 "self":"/field_data/1"
             }
         },
         {
             "type":"field_data",
-            "id":2,
             "attributes":{
-                "media_type":"photo/video/etc",
-                "sector_id":645,
-                "comment":"Comment",
-                "address":"Address",
-                "media":"Media lnk",
-                "title":"Title",
-                "recorded_by":1234,
-                "ngo_id":152,
-                "sdg":"Goal",
-                "longitude":"456.5650000000",
+                "sdg":"Goal222",
+                "comment":"Comment22222",
+                "latitude":"290.5000000000",
+                "title":"Title222222",
+                "ngo_id":1,
+                "recorded_by":1,
+                "media_type":"photo/video/etc222",
+                "longitude":"2456.5650000000",
                 "date":"2000-10-10",
-                "latitude":"90.5000000000"
+                "sector_id":64522,
+                "address":"Address22222",
+                "media":"Media lnk222"
             },
+            "id":5,
             "links":{
-                "self":"/field_data/2"
+                "self":"/field_data/5"
             }
         }
     ],
