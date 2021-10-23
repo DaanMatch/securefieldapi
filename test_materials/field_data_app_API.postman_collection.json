@@ -1,0 +1,508 @@
+{
+	"info": {
+		"_postman_id": "8a4b2604-ae55-4d60-8753-00ed495c8216",
+		"name": "field_data_app_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET member Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return \\'null\\'', function(){\r",
+							"    pm.response.to.have.body('null')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/member/999999999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"999999999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET member Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return JSON response for a member with id==1', function(){\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.type).to.eql(\"member\");\r",
+							"    pm.expect(responseJson.data.id).to.eql(1);\r",
+							"    pm.expect(responseJson.data.attributes).contains.key(\"data_manager\");\r",
+							"    pm.expect(responseJson.data.attributes).contains.key(\"email\");\r",
+							"    pm.expect(responseJson.data.attributes).contains.key(\"mobile\");\r",
+							"    pm.expect(responseJson.data.attributes).contains.key(\"name\");\r",
+							"    pm.expect(responseJson.data.attributes).does.not.contain.key(\"password\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/member/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update member password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return JSON response for a member with id==1', function(){\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.type).to.eql(\"member\");\r",
+							"    pm.expect(responseJson.data.id).to.eql(1);\r",
+							"    pm.expect(responseJson.data.attributes).contains.key(\"data_manager\");\r",
+							"    pm.expect(responseJson.data.attributes).contains.key(\"email\");\r",
+							"    pm.expect(responseJson.data.attributes).contains.key(\"mobile\");\r",
+							"    pm.expect(responseJson.data.attributes).contains.key(\"name\");\r",
+							"})\r",
+							"\r",
+							"pm.test('Should not return the password', function(){\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.attributes).does.not.contain.key(\"password\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"member\",\r\n        \"id\": 1,\r\n        \"attributes\": {\r\n            \"password\": \"password1\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/member/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fail to update other member fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should return error code 422', function(){\r",
+							"    pm.response.to.have.status(422);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"member\",\r\n        \"id\": 1,\r\n        \"attributes\": {\r\n            \"password\": \"password1\",\r\n            \"name\": \"new_name\",\r\n            \"email\": \"new_email\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/member/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST field_data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(201)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return the field_data', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
+							"    pm.expect(responseJson.data).contains.key(\"id\");\r",
+							"    pm.expect(responseJson.data.attributes.recorded_by).to.eql(1);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"Address\",\r\n            \"latitude\": 90.5,\r\n            \"longitude\": 456.565,\r\n            \"title\": \"Title\",\r\n            \"comment\": \"Comment\",\r\n            \"media\": \"Media lnk\",\r\n            \"media_type\": \"photo/video/etc\",\r\n            \"sector_id\": 645,\r\n            \"sdg\": \"Goal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/member/1/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"1",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all field_data for a member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return all field_data associated with member id=1', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data).to.have.length.greaterThan(0);\r",
+							"    pm.expect(responseJson.meta.count).to.be.greaterThan(0);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/member/1/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"1",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET one field_data Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return \\'null\\'', function(){\r",
+							"    pm.response.to.have.body('null')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/field_data/9999999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"9999999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET one field_data Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return field_data with id=1', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
+							"    pm.expect(responseJson.data.id).to.eql(1);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/field_data/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update field_data Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return field_data with id=1', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
+							"    pm.expect(responseJson.data.id).to.eql(1);\r",
+							"})\r",
+							"\r",
+							"pm.test('field_data should have updated attributes', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.attributes.title).to.eql(\"NewTitle\");\r",
+							"    pm.expect(responseJson.data.attributes.address).to.eql(\"NewAddress\");\r",
+							"    pm.expect(responseJson.data.attributes.sdg).to.eql(\"NewGoal\");\r",
+							"    pm.expect(responseJson.data.attributes.comment).to.eql(\"NewComment\");\r",
+							"    pm.expect(responseJson.data.attributes.media).to.eql(\"New Media lnk\");\r",
+							"    pm.expect(responseJson.data.attributes.media_type).to.eql(\"new photo/video/etc\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":1,\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/field_data/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update field_data Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should return status code 404', function(){\r",
+							"    pm.response.to.have.status(404)\r",
+							"})\r",
+							"\r",
+							"pm.test('Should have errors key in JSON response', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).contains.key(\"errors\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":999999,\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/field_data/999999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"999999"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
