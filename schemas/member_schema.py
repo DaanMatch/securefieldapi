@@ -45,7 +45,7 @@ class MemberSchema(Schema):
 
     # args similar to meta class attributes
     field_data = Relationship(
-        related_view = 'field_data_one',
+        related_view = 'field_data_many',
         related_view_kwargs = {'id': '<id>'},
         many = True, 
         schema = 'FieldDataSchema',
