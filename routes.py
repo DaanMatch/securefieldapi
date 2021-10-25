@@ -30,7 +30,7 @@ api.route(MemberLogin, 'member_login', '/login')
 
 # FOR TESTING ONLY, TODO: DELETE THIS LATER
 # Provides POST to /member
-api.route(MemberMany, 'member_many', '/member')
+# api.route(MemberMany, 'member_many', '/member')
 
 
 
