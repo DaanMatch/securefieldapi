@@ -254,7 +254,7 @@
 			"response": []
 		},
 		{
-			"name": "GET all field_data for a member",
+			"name": "GET all field_data for a member Success",
 			"event": [
 				{
 					"listen": "test",
@@ -295,6 +295,53 @@
 					"path": [
 						"member",
 						"1",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all field_data for a member Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should return 404', function(){\r",
+							"    pm.response.to.have.status(404)\r",
+							"})\r",
+							"\r",
+							"pm.test('Should have errors key in JSON response', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).contains.key(\"errors\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/member/999999/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"999999",
 						"field_data"
 					]
 				}
