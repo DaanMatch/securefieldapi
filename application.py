@@ -1,5 +1,6 @@
 from flask import Flask
 
+from config import SECRET_KEY
 from db import db # SQLAlchemy object imported to prevent circular imports
 from api import api # Api object imported from flask_rest_jsonapi to prevent circular imports
 from models import *
@@ -13,7 +14,9 @@ app = Flask(__name__)
 
 
 # Set up SQLAlchemy
+app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Daanmatch.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app) # delayed initialization
 
 
