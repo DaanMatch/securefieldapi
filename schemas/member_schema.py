@@ -42,7 +42,6 @@ class MemberSchema(Schema):
     email = fields.Str(dump_only=True)
     data_manager = fields.Str(dump_only=True)
     password = fields.Str(load_only=True)
-    mobile_device_id = fields.Str(load_only=True)
 
 
     # args similar to meta class attributes

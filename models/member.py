@@ -19,4 +19,3 @@ class Member(db.Model):
     email = db.Column(db.String)
     data_manager = db.Column(db.String)
     password = db.Column(db.String)
-    mobile_device_id = db.Column(db.String)
