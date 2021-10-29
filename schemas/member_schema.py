@@ -25,8 +25,6 @@ class MemberSchema(Schema):
             
     password:
         Only allowed to set pw (load_only)
-    field_data:
-
     other fields:
         Read only (dump_only)
     """
@@ -43,11 +41,3 @@ class MemberSchema(Schema):
     data_manager = fields.Str(dump_only=True)
     password = fields.Str(load_only=True)
 
-
-    # args similar to meta class attributes
-    field_data = Relationship(
-        related_view = 'field_data_many',
-        related_view_kwargs = {'id': '<id>'},
-        many = True, 
-        schema = 'FieldDataSchema',
-        type_ = 'field_data')
