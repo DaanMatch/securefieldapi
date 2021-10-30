@@ -3,6 +3,7 @@ from flask_rest_jsonapi import ResourceDetail
 from db import db
 from schemas import MemberSchema
 from models import Member
+from auth.token_required import token_required
 
 class MemberOne(ResourceDetail):
     """
@@ -23,3 +24,4 @@ class MemberOne(ResourceDetail):
     data_layer = {'session': db.session,
                   'model': Member}
     methods = ['GET', 'PATCH']  
+    decorators = (token_required,)

@@ -3,6 +3,7 @@ from flask_rest_jsonapi import ResourceDetail
 from db import db
 from schemas import FieldDataSchema
 from models import FieldData
+from auth.token_required import token_required
 
 class FieldDataOne(ResourceDetail):
     """
@@ -23,3 +24,4 @@ class FieldDataOne(ResourceDetail):
     schema = FieldDataSchema
     data_layer = {'session': db.session,
                   'model': FieldData}
+    decorators = (token_required,)
