@@ -23,7 +23,7 @@ def login_member():
             }, 
             SECRET_KEY)  
         
-        return jsonify({'token' : token}) 
+        return jsonify({'token' : token.decode('utf-8')}) 
 
     return make_response('could not verify',  401, 
         {'WWW.Authentication': 'Basic realm: "login required"'})
