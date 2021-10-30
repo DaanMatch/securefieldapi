@@ -53,4 +53,4 @@ class FieldDataMany(ResourceList):
                   'model': FieldData,
                   'methods': {'query': query,
                               'before_create_object': before_create_object}}
-    # decorators = (token_required,) # Wait for login to be implemented
+    decorators = (token_required,) # Wait for login to be implemented

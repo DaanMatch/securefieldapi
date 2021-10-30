@@ -23,7 +23,7 @@ def token_required(f):
 
         try:
             data = jwt.decode(token, SECRET_KEY)
-            current_member = Member.query.filter_by(id=data['id']).first()
+            current_member = Member.query.filter_by(id=data['member_id']).first()
         except:
             return jsonify({'message': 'token is invalid'})
 

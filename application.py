@@ -27,6 +27,10 @@ with app.app_context():
 
 api.init_app(app) # delayed initialization
 
+from auth.login import login_member
+@app.route('/login', methods=['GET', 'POST']) 
+def login():
+    return login_member()
 
 # main loop to run app in debug mode
 if __name__ == '__main__':

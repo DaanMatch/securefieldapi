@@ -22,7 +22,7 @@ api.route(MemberMany, 'member_many', '/member')
 api.route(MemberOne, 'member_one', '/member/<int:id>')
 
 # Provides POST to /login
-api.route(MemberLogin, 'member_login', '/login')
+# api.route(MemberLogin, 'member_login', '/login/<int:id>')
 
 
 # FOR TESTING ONLY, TODO: DELETE THIS LATER
