@@ -6,18 +6,76 @@
 	},
 	"item": [
 		{
+			"name": "Login Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Logged in', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Json response should have token', function(){\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data).contains.key(\"token\");\r",
+							"    \r",
+							"    // Set the token as an env variable\r",
+							"    pm.environment.set(\"token\", responseJson.data.token);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET member Fail",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('Request should succeed', function(){\r",
-							"    pm.response.to.have.status(200)\r",
-							"})\r",
-							"\r",
-							"pm.test('Request should return \\'null\\'', function(){\r",
-							"    pm.response.to.have.body('null')\r",
+							"pm.test('Request should fail', function(){\r",
+							"    pm.response.to.not.have.status(200)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -31,10 +89,15 @@
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/member/999999999",
+					"raw": "http://localhost:5000/member/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -42,7 +105,7 @@
 					"port": "5000",
 					"path": [
 						"member",
-						"999999999"
+						"2"
 					]
 				}
 			},
@@ -81,8 +144,62 @@
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
+				"url": {
+					"raw": "http://localhost:5000/member/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fail to update other member fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should return error code 422', function(){\r",
+							"    pm.response.to.have.status(422);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"member\",\r\n        \"id\": 1,\r\n        \"attributes\": {\r\n            \"password\": \"password1\",\r\n            \"name\": \"new_name\",\r\n            \"email\": \"new_email\"\r\n        }\r\n    }\r\n}"
+				},
 				"url": {
 					"raw": "http://localhost:5000/member/1",
 					"protocol": "http",
@@ -135,6 +252,11 @@
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -157,36 +279,102 @@
 			"response": []
 		},
 		{
-			"name": "Fail to update other member fields",
+			"name": "Login with new password",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('Should return error code 422', function(){\r",
-							"    pm.response.to.have.status(422);\r",
+							"pm.test('Logged in', function(){\r",
+							"    pm.response.to.have.status(200)\r",
 							"})\r",
-							""
+							"\r",
+							"pm.test('Json response should have token', function(){\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data).contains.key(\"token\");\r",
+							"    \r",
+							"    // Set the token as an env variable\r",
+							"    pm.environment.set(\"token\", responseJson.data.token);\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "PATCH",
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fail to POST field_data to different member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should fail', function(){\r",
+							"    pm.response.to.not.have.status(201)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"member\",\r\n        \"id\": 1,\r\n        \"attributes\": {\r\n            \"password\": \"password1\",\r\n            \"name\": \"new_name\",\r\n            \"email\": \"new_email\"\r\n        }\r\n    }\r\n}"
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"Address\",\r\n            \"latitude\": 90.5,\r\n            \"longitude\": 456.565,\r\n            \"title\": \"Title\",\r\n            \"comment\": \"Comment\",\r\n            \"media\": \"Media lnk\",\r\n            \"media_type\": \"photo/video/etc\",\r\n            \"sector_id\": 645,\r\n            \"sdg\": \"Goal\"\r\n        }\r\n    }\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:5000/member/1",
+					"raw": "http://localhost:5000/member/2/field_data",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -194,7 +382,8 @@
 					"port": "5000",
 					"path": [
 						"member",
-						"1"
+						"2",
+						"field_data"
 					]
 				}
 			},
@@ -231,6 +420,11 @@
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -247,6 +441,52 @@
 					"path": [
 						"member",
 						"1",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all field_data for a member Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should not allow access to different member\\'s field_data', function(){\r",
+							"    pm.response.to.not.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/member/2/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"2",
 						"field_data"
 					]
 				}
@@ -283,6 +523,11 @@
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"url": {
@@ -295,53 +540,6 @@
 					"path": [
 						"member",
 						"1",
-						"field_data"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET all field_data for a member Fail",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Request should return 404', function(){\r",
-							"    pm.response.to.have.status(404)\r",
-							"})\r",
-							"\r",
-							"pm.test('Should have errors key in JSON response', function(){\r",
-							"    pm.response.to.not.have.body('null')\r",
-							"\r",
-							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(responseJson).contains.key(\"errors\");\r",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/vnd.api+json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:5000/member/999999/field_data",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"member",
-						"999999",
 						"field_data"
 					]
 				}
@@ -373,6 +571,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
 						"type": "text"
 					}
 				],
@@ -421,6 +624,11 @@
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"url": {
@@ -433,6 +641,61 @@
 					"path": [
 						"field_data",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update field_data Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should return status code 404', function(){\r",
+							"    pm.response.to.have.status(404)\r",
+							"})\r",
+							"\r",
+							"pm.test('Should have errors key in JSON response', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).contains.key(\"errors\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":999999,\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/field_data/999999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"999999"
 					]
 				}
 			},
@@ -480,6 +743,11 @@
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -502,22 +770,13 @@
 			"response": []
 		},
 		{
-			"name": "Update field_data Fail",
+			"name": "[Helper] Reset member password",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('Should return status code 404', function(){\r",
-							"    pm.response.to.have.status(404)\r",
-							"})\r",
-							"\r",
-							"pm.test('Should have errors key in JSON response', function(){\r",
-							"    pm.response.to.not.have.body('null')\r",
-							"\r",
-							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(responseJson).contains.key(\"errors\");\r",
-							"})"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -530,22 +789,27 @@
 						"key": "Content-Type",
 						"value": "application/vnd.api+json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":999999,\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\"\r\n        }\r\n    }\r\n}"
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"member\",\r\n        \"id\": 1,\r\n        \"attributes\": {\r\n            \"password\": \"password\"\r\n        }\r\n    }\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:5000/field_data/999999",
+					"raw": "http://localhost:5000/member/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"field_data",
-						"999999"
+						"member",
+						"1"
 					]
 				}
 			},
