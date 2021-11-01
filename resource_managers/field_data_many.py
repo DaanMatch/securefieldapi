@@ -29,7 +29,7 @@ class FieldDataMany(ResourceList):
         from /member/<int:id>/field_data
     """
     def query(self, view_kwargs):
-        query_ = self.session.query(FieldData)
+        query_ = self.session.query(FieldData).filter_by(deleted=False)
 
         # Filter all field_data corresponding to member.id
         if view_kwargs.get('id') is not None:
@@ -46,6 +46,7 @@ class FieldDataMany(ResourceList):
         if view_kwargs.get('id') is not None:
             member = self.session.query(Member).filter_by(id=view_kwargs['id']).one()
             data['recorded_by'] = member.id
+            data['deleted'] = False
 
 
     schema = FieldDataSchema
