@@ -16,6 +16,8 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 | /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data entry |
 | /member/\<int:id\> | GET | member_one | Retrieve details of a member | (except password)
 | /member/\<int:id\> | PATCH | member_one | Updates a member's password | Use this to let members already in the database set a password. Nothing else can be updated.
+| /field_data/\<int:id\>/delete | PATCH | field_data_delete | Sets field_data.deleted = True |
+| /login | GET | login | Allow member to login. Temp passwords are "password" no quotes. | 
 
 <br/><br/><br/><br/>
 
@@ -23,7 +25,7 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 
 | URL | Method | Endpoint | Action | Notes |
 | -- | -- | -- | -- | -- |
-| /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data entry | Need to create a workaround to prevent malicious deletion
+
 
 <br/><br/><br/><br/>
 

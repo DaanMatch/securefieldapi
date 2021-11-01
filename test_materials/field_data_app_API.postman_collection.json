@@ -68,50 +68,6 @@
 			"response": []
 		},
 		{
-			"name": "GET member Fail",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Request should fail', function(){\r",
-							"    pm.response.to.not.have.status(200)\r",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/vnd.api+json",
-						"type": "text"
-					},
-					{
-						"key": "x-access-tokens",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:5000/member/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"member",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "GET member Success",
 			"event": [
 				{
@@ -161,6 +117,50 @@
 					"path": [
 						"member",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET member Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should fail', function(){\r",
+							"    pm.response.to.not.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/member/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"2"
 					]
 				}
 			},
@@ -341,55 +341,6 @@
 			"response": []
 		},
 		{
-			"name": "Fail to POST field_data to different member",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Request should fail', function(){\r",
-							"    pm.response.to.not.have.status(201)\r",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/vnd.api+json",
-						"type": "text"
-					},
-					{
-						"key": "x-access-tokens",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"Address\",\r\n            \"latitude\": 90.5,\r\n            \"longitude\": 456.565,\r\n            \"title\": \"Title\",\r\n            \"comment\": \"Comment\",\r\n            \"media\": \"Media lnk\",\r\n            \"media_type\": \"photo/video/etc\",\r\n            \"sector_id\": 645,\r\n            \"sdg\": \"Goal\"\r\n        }\r\n    }\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:5000/member/2/field_data",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"member",
-						"2",
-						"field_data"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "POST field_data",
 			"event": [
 				{
@@ -407,6 +358,9 @@
 							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
 							"    pm.expect(responseJson.data).contains.key(\"id\");\r",
 							"    pm.expect(responseJson.data.attributes.recorded_by).to.eql(1);\r",
+							"\r",
+							"    // Set the token as an env variable\r",
+							"    pm.environment.set(\"id\", responseJson.data.id);\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -448,23 +402,22 @@
 			"response": []
 		},
 		{
-			"name": "GET all field_data for a member Fail",
+			"name": "Fail to POST field_data to different member",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('Should not allow access to different member\\'s field_data', function(){\r",
-							"    pm.response.to.not.have.status(200)\r",
-							"})\r",
-							""
+							"pm.test('Request should fail', function(){\r",
+							"    pm.response.to.not.have.status(201)\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -477,6 +430,10 @@
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"Address\",\r\n            \"latitude\": 90.5,\r\n            \"longitude\": 456.565,\r\n            \"title\": \"Title\",\r\n            \"comment\": \"Comment\",\r\n            \"media\": \"Media lnk\",\r\n            \"media_type\": \"photo/video/etc\",\r\n            \"sector_id\": 645,\r\n            \"sdg\": \"Goal\"\r\n        }\r\n    }\r\n}"
+				},
 				"url": {
 					"raw": "http://localhost:5000/member/2/field_data",
 					"protocol": "http",
@@ -547,6 +504,106 @@
 			"response": []
 		},
 		{
+			"name": "GET all field_data for a member Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should not allow access to different member\\'s field_data', function(){\r",
+							"    pm.response.to.not.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/member/2/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"2",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET one field_data Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"id = pm.environment.get(\"id\");\r",
+							"\r",
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return field_data with id='+id, function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
+							"    pm.expect(responseJson.data.id).to.eql(id);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/field_data/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET one field_data Fail",
 			"event": [
 				{
@@ -554,11 +611,7 @@
 					"script": {
 						"exec": [
 							"pm.test('Request should succeed', function(){\r",
-							"    pm.response.to.have.status(200)\r",
-							"})\r",
-							"\r",
-							"pm.test('Request should return \\'null\\'', function(){\r",
-							"    pm.response.to.have.body('null')\r",
+							"    pm.response.to.have.status(404)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -595,30 +648,23 @@
 			"response": []
 		},
 		{
-			"name": "GET one field_data Success",
+			"name": "Fail to update field_data deleted field",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('Request should succeed', function(){\r",
-							"    pm.response.to.have.status(200)\r",
+							"pm.test('Return 422', function(){\r",
+							"    pm.response.to.have.status(422)\r",
 							"})\r",
-							"\r",
-							"pm.test('Request should return field_data with id=1', function(){\r",
-							"    pm.response.to.not.have.body('null')\r",
-							"\r",
-							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
-							"    pm.expect(responseJson.data.id).to.eql(1);\r",
-							"})"
+							""
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "GET",
+				"method": "PATCH",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -631,8 +677,12 @@
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":{{id}},\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\",\r\n            \"deleted\": true\r\n        }\r\n    }\r\n}"
+				},
 				"url": {
-					"raw": "http://localhost:5000/field_data/1",
+					"raw": "http://localhost:5000/field_data/{{id}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -640,7 +690,77 @@
 					"port": "5000",
 					"path": [
 						"field_data",
-						"1"
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update field_data Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"id = pm.environment.get(\"id\");\r",
+							"\r",
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return field_data with id='+id, function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
+							"    pm.expect(responseJson.data.id).to.eql(id);\r",
+							"})\r",
+							"\r",
+							"pm.test('field_data should have updated attributes', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.attributes.title).to.eql(\"NewTitle\");\r",
+							"    pm.expect(responseJson.data.attributes.address).to.eql(\"NewAddress\");\r",
+							"    pm.expect(responseJson.data.attributes.sdg).to.eql(\"NewGoal\");\r",
+							"    pm.expect(responseJson.data.attributes.comment).to.eql(\"NewComment\");\r",
+							"    pm.expect(responseJson.data.attributes.media).to.eql(\"New Media lnk\");\r",
+							"    pm.expect(responseJson.data.attributes.media_type).to.eql(\"new photo/video/etc\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":{{id}},\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/field_data/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"{{id}}"
 					]
 				}
 			},
@@ -702,34 +822,81 @@
 			"response": []
 		},
 		{
-			"name": "Update field_data Success",
+			"name": "Fail to update other field_data fields",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test('Return 422', function(){\r",
+							"    pm.response.to.have.status(422)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":{{id}},\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/field_data/{{id}}/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"{{id}}",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set field_data to deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"id = pm.environment.get(\"id\");\r",
+							"\r",
 							"pm.test('Request should succeed', function(){\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
 							"\r",
-							"pm.test('Request should return field_data with id=1', function(){\r",
+							"pm.test('Request should return field_data with id='+id, function(){\r",
 							"    pm.response.to.not.have.body('null')\r",
 							"\r",
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
-							"    pm.expect(responseJson.data.id).to.eql(1);\r",
+							"    pm.expect(responseJson.data.id).to.eql(id);\r",
 							"})\r",
 							"\r",
 							"pm.test('field_data should have updated attributes', function(){\r",
 							"    pm.response.to.not.have.body('null')\r",
 							"\r",
 							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(responseJson.data.attributes.title).to.eql(\"NewTitle\");\r",
-							"    pm.expect(responseJson.data.attributes.address).to.eql(\"NewAddress\");\r",
-							"    pm.expect(responseJson.data.attributes.sdg).to.eql(\"NewGoal\");\r",
-							"    pm.expect(responseJson.data.attributes.comment).to.eql(\"NewComment\");\r",
-							"    pm.expect(responseJson.data.attributes.media).to.eql(\"New Media lnk\");\r",
-							"    pm.expect(responseJson.data.attributes.media_type).to.eql(\"new photo/video/etc\");\r",
+							"    pm.expect(responseJson.data.attributes.deleted).to.eql(true);\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -752,10 +919,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":1,\r\n        \"attributes\": {\r\n            \"ngo_id\": 1,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\"\r\n        }\r\n    }\r\n}"
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":{{id}}\r\n    }\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:5000/field_data/1",
+					"raw": "http://localhost:5000/field_data/{{id}}/delete",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -763,7 +930,52 @@
 					"port": "5000",
 					"path": [
 						"field_data",
-						"1"
+						"{{id}}",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Can't GET deleted field_data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should get 404', function(){\r",
+							"    pm.response.to.have.status(404)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/field_data/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"{{id}}"
 					]
 				}
 			},
