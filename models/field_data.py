@@ -38,6 +38,7 @@ class FieldData(db.Model):
     media_type = db.Column(db.Text)
     sector_id = db.Column(db.Integer)
     sdg = db.Column(db.CHAR)
+    deleted = db.Column(db.Boolean)
 
     daanmatch_ngo = db.relationship('DaanmatchNgo', 
         backref=db.backref('field_data', uselist = False))

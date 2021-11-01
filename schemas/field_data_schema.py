@@ -52,3 +52,4 @@ class FieldDataSchema(Schema):
     media_type = fields.Str()
     sector_id = fields.Integer()
     sdg = fields.Str()
+    deleted = fields.Boolean()
