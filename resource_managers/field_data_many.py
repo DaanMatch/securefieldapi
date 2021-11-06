@@ -5,7 +5,9 @@ from flask_rest_jsonapi.exceptions import ObjectNotFound
 from db import db
 from schemas import FieldDataSchema
 from models import FieldData, Member
+from auth.check_ids_match import check_member_ids_match
 from auth.token_required import token_required
+
 
 class FieldDataMany(ResourceList):
     """
@@ -33,10 +35,16 @@ class FieldDataMany(ResourceList):
 
         # Filter all field_data corresponding to member.id
         if view_kwargs.get('id') is not None:
+            # If the id != member_id in token, raise exception
+            check_member_ids_match(view_kwargs['id'])
+
             try:
                 self.session.query(Member).filter_by(id=view_kwargs['id']).one()
             except NoResultFound:
-                raise ObjectNotFound({'parameter': 'id'}, "Member: {} not found".format(view_kwargs['id']))
+                raise ObjectNotFound(
+                    {'parameter': 'id'}, 
+                    "Member: {} not found".format(view_kwargs['id'])
+                )
             else: # Join Member.id w/ FieldData.recorded_by (foreign key)
                 query_ = query_.join(Member).filter(Member.id == view_kwargs['id'])
         
@@ -44,6 +52,9 @@ class FieldDataMany(ResourceList):
 
     def before_create_object(self, data, view_kwargs):
         if view_kwargs.get('id') is not None:
+            # If the id != member_id in token, raise exception  
+            check_member_ids_match(view_kwargs['id'])
+
             member = self.session.query(Member).filter_by(id=view_kwargs['id']).one()
             data['recorded_by'] = member.id
             data['deleted'] = False

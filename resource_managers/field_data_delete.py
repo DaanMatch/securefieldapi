@@ -5,6 +5,7 @@ from flask_rest_jsonapi.exceptions import ObjectNotFound
 from db import db
 from schemas import FieldDataDeleteSchema
 from models import FieldData
+from auth.check_ids_match import check_member_ids_match
 from auth.token_required import token_required
 
 class FieldDataDelete(ResourceDetail):
@@ -16,6 +17,8 @@ class FieldDataDelete(ResourceDetail):
 
     Attributes
     ----------
+    before_update_object:
+        Custom validation before calling the PATCH method
     schema:
         The schema for the resource being managed
     data_layer:
@@ -33,6 +36,9 @@ class FieldDataDelete(ResourceDetail):
             except NoResultFound:
                 raise ObjectNotFound({'parameter': 'id'},
                                      "Field data: {} not found".format(view_kwargs['id']))
+            # If the field_data.recorded_by != member_id in token, raise exception
+            check_member_ids_match(field_data.recorded_by)
+
 
     schema = FieldDataDeleteSchema
     data_layer = {'session': db.session,
