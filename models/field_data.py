@@ -27,7 +27,7 @@ class FieldData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'),
         nullable=False)
-    recorded_by = db.Column(db.Text, db.ForeignKey('member.id'))
+    recorded_by = db.Column(db.Integer, db.ForeignKey('member.id'))
     date = db.Column(db.Date)
     address = db.Column(db.Text)
     latitude = db.Column(db.DECIMAL)
