@@ -408,8 +408,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('Request should fail', function(){\r",
-							"    pm.response.to.not.have.status(201)\r",
+							"pm.test('Should return 403 access denied', function(){\r",
+							"    pm.response.to.have.status(403)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -511,7 +511,7 @@
 					"script": {
 						"exec": [
 							"pm.test('Should not allow access to different member\\'s field_data', function(){\r",
-							"    pm.response.to.not.have.status(200)\r",
+							"    pm.response.to.have.status(403)\r",
 							"})\r",
 							""
 						],
@@ -610,7 +610,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('Request should succeed', function(){\r",
+							"pm.test('Should return 404 not found', function(){\r",
 							"    pm.response.to.have.status(404)\r",
 							"})"
 						],
