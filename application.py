@@ -5,7 +5,7 @@ from models import *
 from schemas import *
 from resource_managers import *
 from routes import *
-from limiter import limiter
+from utils.limiter import limiter
 
 
 db.init_app(app) # delayed initialization

@@ -7,7 +7,7 @@ from schemas import FieldDataSchema
 from models import FieldData
 from auth.token_required import token_required
 from auth.check_ids_match import check_member_ids_match
-from limiter import limiter
+from utils.limiter import limiter
 
 class FieldDataOne(ResourceDetail):
     """
