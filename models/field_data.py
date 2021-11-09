@@ -1,5 +1,4 @@
 from setup.db import db
-from utils.sdg import SDG
 
 class FieldData(db.Model):
     """
