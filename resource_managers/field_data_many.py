@@ -32,6 +32,10 @@ class FieldDataMany(ResourceList):
         from /member/<int:id>/field_data
     """
     def query(self, view_kwargs):
+        """
+        Gets all field_data for the user by matching view_kwargs['id']
+        (the member id) with field_data.recorded_by (foreign key).
+        """
         query_ = self.session.query(FieldData).filter_by(deleted=False)
 
         # Filter all field_data corresponding to member.id
@@ -46,12 +50,16 @@ class FieldDataMany(ResourceList):
                     {'parameter': 'id'}, 
                     "Member: {} not found".format(view_kwargs['id'])
                 )
-            else: # Join Member.id w/ FieldData.recorded_by (foreign key)
+            else: # Join Member.id w/ FieldData.recorded_by (foreign key) by default
                 query_ = query_.join(Member).filter(Member.id == view_kwargs['id'])
         
         return query_
 
     def before_create_object(self, data, view_kwargs):
+        """
+        Automatically sets new field_data.recorded_by to appropriate 
+        member id and sets field_data.deleted to False.
+        """
         if view_kwargs.get('id') is not None:
             # If the id != member_id in token, raise exception  
             check_member_ids_match(view_kwargs['id'])
