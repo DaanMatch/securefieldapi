@@ -1,6 +1,6 @@
 from flask_rest_jsonapi import ResourceDetail
 
-from db import db
+from setup.db import db
 from schemas import MemberSchema
 from models import Member
 from auth.token_required import token_required

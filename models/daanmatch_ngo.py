@@ -1,4 +1,4 @@
-from db import db
+from setup.db import db
 
 class DaanmatchNgo(db.Model):
     """

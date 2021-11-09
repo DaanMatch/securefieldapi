@@ -1,6 +1,6 @@
 from flask import Flask
 
-from config import SECRET_KEY
+from setup.config import SECRET_KEY
 
 
 # Create a new Flask application

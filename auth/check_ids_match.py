@@ -2,7 +2,7 @@ from flask_rest_jsonapi.exceptions import AccessDenied
 from flask import request
 import jwt
 
-from config import SECRET_KEY
+from setup.config import SECRET_KEY
 
 def check_member_ids_match(requested_resource_member_id):
     """

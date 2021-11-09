@@ -2,7 +2,7 @@ from flask import jsonify, request, make_response
 import jwt
 import datetime
 
-from config import SECRET_KEY
+from setup.config import SECRET_KEY
 from models import Member
 
 def login_member(): 

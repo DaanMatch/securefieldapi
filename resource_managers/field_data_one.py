@@ -2,7 +2,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from flask_rest_jsonapi import ResourceDetail
 from flask_rest_jsonapi.exceptions import ObjectNotFound
 
-from db import db
+from setup.db import db
 from schemas import FieldDataSchema
 from models import FieldData
 from auth.token_required import token_required

@@ -2,7 +2,7 @@ from flask import jsonify, request
 import jwt
 from functools import wraps
 
-from config import SECRET_KEY
+from setup.config import SECRET_KEY
 from models import Member
 
 # Create decorator for authorization:

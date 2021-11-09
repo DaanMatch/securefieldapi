@@ -2,7 +2,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from flask_rest_jsonapi import ResourceDetail
 from flask_rest_jsonapi.exceptions import ObjectNotFound
 
-from db import db
+from setup.db import db
 from schemas import FieldDataDeleteSchema
 from models import FieldData
 from auth.check_ids_match import check_member_ids_match

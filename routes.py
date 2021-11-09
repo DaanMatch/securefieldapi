@@ -1,4 +1,4 @@
-from api import api
+from setup.api import api
 from resource_managers import *
 
 # Format: api.route(<Resource manager>, <endpoint name>, <url_1>, <url_2>, ...)
