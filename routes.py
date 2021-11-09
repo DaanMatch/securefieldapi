@@ -1,5 +1,16 @@
 from setup.api import api
+from setup.app import app
+from auth.login import login_member
 from resource_managers import *
+from utils.limiter import limiter
+
+
+# login route, could not get to work w/ flask_rest_jsonapi extention
+@limiter.limit("6/10minutes")
+@app.route('/login', methods=['GET', 'POST']) 
+def login():
+    return login_member()
+
 
 # Format: api.route(<Resource manager>, <endpoint name>, <url_1>, <url_2>, ...)
 

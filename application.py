@@ -5,23 +5,17 @@ from models import *
 from schemas import *
 from resource_managers import *
 from routes import *
-from utils.limiter import limiter
 
 
-db.init_app(app) # delayed initialization
+# delayed initialization
+db.init_app(app)
 
 # Create the tables
 with app.app_context():
     db.create_all()
 
-api.init_app(app) # delayed initialization
-
-# login route, move me later
-from auth.login import login_member
-@limiter.limit("6/10minutes")
-@app.route('/login', methods=['GET', 'POST']) 
-def login():
-    return login_member()
+# delayed initialization
+api.init_app(app)
 
 # main loop to run app in debug mode
 if __name__ == '__main__':
