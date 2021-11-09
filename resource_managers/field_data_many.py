@@ -7,6 +7,7 @@ from schemas import FieldDataSchema
 from models import FieldData, Member
 from auth.check_ids_match import check_member_ids_match
 from auth.token_required import token_required
+from limiter import limiter
 
 
 class FieldDataMany(ResourceList):
@@ -65,4 +66,7 @@ class FieldDataMany(ResourceList):
                   'model': FieldData,
                   'methods': {'query': query,
                               'before_create_object': before_create_object}}
-    decorators = (token_required,)
+    decorators = (
+        token_required, 
+        limiter.limit("5/second;30/minute"), 
+    )

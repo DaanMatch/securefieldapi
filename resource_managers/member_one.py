@@ -5,6 +5,7 @@ from schemas import MemberSchema
 from models import Member
 from auth.token_required import token_required
 from auth.check_ids_match import check_member_ids_match
+from limiter import limiter
 
 class MemberOne(ResourceDetail):
     """
@@ -44,4 +45,7 @@ class MemberOne(ResourceDetail):
                   'methods': {'before_get_object': before_get_object,
                               'before_update_object': before_update_object}}
     methods = ['GET', 'PATCH']  
-    decorators = (token_required,)
+    decorators = (
+        token_required, 
+        limiter.limit("5/second;30/minute"), 
+    )

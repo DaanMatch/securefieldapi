@@ -7,6 +7,7 @@ from schemas import FieldDataDeleteSchema
 from models import FieldData
 from auth.check_ids_match import check_member_ids_match
 from auth.token_required import token_required
+from limiter import limiter
 
 class FieldDataDelete(ResourceDetail):
     """
@@ -45,4 +46,7 @@ class FieldDataDelete(ResourceDetail):
                   'model': FieldData,
                   'methods': {'before_update_object': before_update_object}}
     methods = ['PATCH']
-    decorators = (token_required,)
+    decorators = (
+        token_required, 
+        limiter.limit("5/second;30/minute"), 
+    )

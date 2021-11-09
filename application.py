@@ -20,7 +20,7 @@ api.init_app(app) # delayed initialization
 
 # login route, move me later
 from auth.login import login_member
-@limiter.limit("5/10minutes")
+@limiter.limit("6/10minutes")
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
     return login_member()
