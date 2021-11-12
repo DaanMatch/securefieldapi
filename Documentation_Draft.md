@@ -12,6 +12,7 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 | -- | -- | -- | -- | -- |
 | /member/\<int:id\>/field_data | GET | field_data_many | Retrieve a list of all field_data entries associated with a member |
 | /member/\<int:id\>/field_data | POST | field_data_many | Creates a field_data entry associated with a member |
+| /ngo/\<int:id\>/field_data | GET | field_data_ngo_many | Retrieve all field_data associated with NGO id. Must have "OM" designation for the specified NGO |
 | /field_data/\<int:id\> | GET | field_data_one | Retrieve details of a field_data entry |
 | /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data entry |
 | /member/\<int:id\> | GET | member_one | Retrieve details of a member | (except password)

@@ -33,13 +33,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "1",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "1",
+							"key": "password",
+							"value": "password",
 							"type": "string"
 						}
 					]
@@ -542,6 +542,105 @@
 					"port": "5000",
 					"path": [
 						"member",
+						"2",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all field_data for an NGO Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return all field_data associated with ngo_id=1', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data).to.have.length.greaterThan(0);\r",
+							"    pm.expect(responseJson.meta.count).to.be.greaterThan(0);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/ngo/1/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ngo",
+						"1",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all field_data for an NGO Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should return 403 unauthorized access', function(){\r",
+							"    pm.response.to.have.status(403)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/ngo/2/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ngo",
 						"2",
 						"field_data"
 					]

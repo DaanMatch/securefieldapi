@@ -19,5 +19,6 @@ class ResourceManager(Resource_________):
 
 from .field_data_delete import *
 from .field_data_many import *
+from .field_data_ngo_many import *
 from .field_data_one import *
 from .member_one import *
