@@ -16,7 +16,9 @@ from setup.config import SECRET_KEY
 class FieldDataNgoMany(ResourceList):
     """
     Inheriting from ResourceList creates GET (multiple) and POST 
-    methods for field_data.
+    methods for field_data. Only interested in GET for this 
+    resource manager. Want to GET all field_data for an NGO
+    if the user has OM designation on the NGO.
     ...
 
     Attributes
@@ -33,15 +35,20 @@ class FieldDataNgoMany(ResourceList):
     """
     def query(self, view_kwargs):
         """
-        Gets all field_data for the user by matching view_kwargs['id']
-        (the member id) with field_data.recorded_by (foreign key).
+        Gets all field_data for the NGO. 
+
+        Parameters
+        ----------
+        view_kwargs.id is the id for the desired NGO.
         """
+        # get the member_id from the token
         token = request.headers['x-access-tokens']
         token_data = jwt.decode(token, SECRET_KEY)
         member_id = token_data['member_id']
 
         query_ = self.session.query(FieldData).filter_by(deleted=False)
         
+        # formatted like { ngo_id_1: ['OM', 'DM', ...], ... }
         roles_dict = get_roles(member_id)
 
         # Filter all field_data corresponding to member.id
