@@ -19,7 +19,8 @@ def check_member_ids_match(requested_resource_member_id):
     if requested_resource_member_id != token_data['member_id']:
         raise AccessDenied(
             {'parameter': 'id'}, 
-            "Member {} cannot access member {}'s field_data".format(
+            "Member {} cannot access member {}'s field_data since they are \
+not a OM for the NGO of the requested field_data".format(
                 token_data['member_id'], requested_resource_member_id
             )
         )

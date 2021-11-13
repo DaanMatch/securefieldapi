@@ -32,15 +32,15 @@ class FieldDataNgoMany(ResourceList):
     """
     def query(self, view_kwargs):
         """
-        Gets all field_data for the NGO. 
+        Gets all field_data for the NGO if user is an OM for the NGO.
 
-        Parameters
-        ----------
-        view_kwargs.id is the id for the desired NGO.
+        Params
+        ------
+        view_kwargs:
+            The args passed in the URL
         """
         query_ = self.session.query(FieldData).filter_by(deleted=False)
         
-        # formatted like { ngo_id_1: ['OM', 'DM', ...], ... }
         roles_dict = get_roles()
 
         # Filter all field_data corresponding to member.id
@@ -69,6 +69,7 @@ class FieldDataNgoMany(ResourceList):
         return query_
 
 
+
     schema = FieldDataSchema
     data_layer = {'session': db.session,
                   'model': FieldData,
@@ -76,6 +77,6 @@ class FieldDataNgoMany(ResourceList):
     methods = ['GET']
     decorators = (
         token_required, 
-        limiter.limit("5/second;30/minute"), 
+        limiter.limit("5/second;45/minute,300/hour"), 
     )
    

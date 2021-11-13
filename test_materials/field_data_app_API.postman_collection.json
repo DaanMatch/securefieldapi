@@ -6,6 +6,129 @@
 	},
 	"item": [
 		{
+			"name": "[Helper] Login to member 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Logged in', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Json response should have token', function(){\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data).contains.key(\"token\");\r",
+							"    \r",
+							"    // Set the token as an env variable\r",
+							"    pm.environment.set(\"token_setup\", responseJson.data.token);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "2",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Helper]POST field_data to ngo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should succeed', function(){\r",
+							"    pm.response.to.have.status(201)\r",
+							"})\r",
+							"\r",
+							"pm.test('Request should return the field_data', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.type).to.eql(\"field_data\");\r",
+							"    pm.expect(responseJson.data).contains.key(\"id\");\r",
+							"    pm.expect(responseJson.data.attributes.recorded_by).to.eql(2);\r",
+							"\r",
+							"    // Set the id as an env variable\r",
+							"    pm.environment.set(\"ngo2_field_data_id\", responseJson.data.id);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token_setup}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"attributes\": {\r\n            \"ngo_id\": 2,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"Address\",\r\n            \"latitude\": 90.5,\r\n            \"longitude\": 456.565,\r\n            \"title\": \"Title\",\r\n            \"comment\": \"Comment\",\r\n            \"media\": \"Media lnk\",\r\n            \"media_type\": \"photo/video/etc\",\r\n            \"sector_id\": 645,\r\n            \"sdg\": \"Goal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/member/2/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"2",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Login Success",
 			"event": [
 				{
@@ -359,7 +482,7 @@
 							"    pm.expect(responseJson.data).contains.key(\"id\");\r",
 							"    pm.expect(responseJson.data.attributes.recorded_by).to.eql(1);\r",
 							"\r",
-							"    // Set the token as an env variable\r",
+							"    // Set the id as an env variable\r",
 							"    pm.environment.set(\"id\", responseJson.data.id);\r",
 							"})"
 						],
@@ -410,6 +533,13 @@
 						"exec": [
 							"pm.test('Should return 403 access denied', function(){\r",
 							"    pm.response.to.have.status(403)\r",
+							"})\r",
+							"\r",
+							"pm.test('Should have errors key in JSON response', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).contains.key(\"errors\");\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -444,6 +574,62 @@
 					"path": [
 						"member",
 						"2",
+						"field_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fail to POST field_data to different NGO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should return 403 access denied', function(){\r",
+							"    pm.response.to.have.status(403)\r",
+							"})\r",
+							"\r",
+							"pm.test('Should have errors key in JSON response', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).contains.key(\"errors\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"attributes\": {\r\n            \"ngo_id\": 2,\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"Address\",\r\n            \"latitude\": 90.5,\r\n            \"longitude\": 456.565,\r\n            \"title\": \"Title\",\r\n            \"comment\": \"Comment\",\r\n            \"media\": \"Media lnk\",\r\n            \"media_type\": \"photo/video/etc\",\r\n            \"sector_id\": 645,\r\n            \"sdg\": \"Goal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/member/1/field_data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"member",
+						"1",
 						"field_data"
 					]
 				}
@@ -747,6 +933,57 @@
 			"response": []
 		},
 		{
+			"name": "Fail to GET field_data of a different NGO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should return 403 access denied', function(){\r",
+							"    pm.response.to.have.status(403)\r",
+							"})\r",
+							"\r",
+							"pm.test('Should have errors key in JSON response', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).contains.key(\"errors\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/field_data/{{ngo2_field_data_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"{{ngo2_field_data_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Fail to update field_data deleted field",
 			"event": [
 				{
@@ -921,7 +1158,62 @@
 			"response": []
 		},
 		{
-			"name": "Fail to update other field_data fields",
+			"name": "Fail to update field_data of different NGO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Should return 403 access denied', function(){\r",
+							"    pm.response.to.have.status(403)\r",
+							"})\r",
+							"\r",
+							"pm.test('Should have errors key in JSON response', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).contains.key(\"errors\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":{{ngo2_field_data_id}},\r\n        \"attributes\": {\r\n            \"date\": \"2000-10-10\",\r\n            \"address\": \"NewAddress\",\r\n            \"latitude\": 2.0,\r\n            \"longitude\": 2.0,\r\n            \"title\": \"NewTitle\",\r\n            \"comment\": \"NewComment\",\r\n            \"media\": \"New Media lnk\",\r\n            \"media_type\": \"new photo/video/etc\",\r\n            \"sector_id\": 1,\r\n            \"sdg\": \"NewGoal\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/field_data/{{ngo2_field_data_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"{{ngo2_field_data_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fail to update other field_data fields through delete route",
 			"event": [
 				{
 					"listen": "test",
@@ -1075,6 +1367,62 @@
 					"path": [
 						"field_data",
 						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fail to delete field_data of a different NGO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Request should return 403 access denied', function(){\r",
+							"    pm.response.to.have.status(403)\r",
+							"})\r",
+							"\r",
+							"pm.test('Should have errors key in JSON response', function(){\r",
+							"    pm.response.to.not.have.body('null')\r",
+							"\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).contains.key(\"errors\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-tokens",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"type\": \"field_data\",\r\n        \"id\":{{ngo2_field_data_id}}\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/field_data/{{ngo2_field_data_id}}/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"field_data",
+						"{{ngo2_field_data_id}}",
+						"delete"
 					]
 				}
 			},

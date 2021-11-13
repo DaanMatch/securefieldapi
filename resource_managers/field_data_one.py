@@ -1,11 +1,12 @@
 from sqlalchemy.orm.exc import NoResultFound
 from flask_rest_jsonapi import ResourceDetail
-from flask_rest_jsonapi.exceptions import ObjectNotFound
+from flask_rest_jsonapi.exceptions import AccessDenied, ObjectNotFound
 
 from setup.db import db
 from schemas import FieldDataSchema
 from models import FieldData
 from auth.token_required import token_required
+from auth.get_roles import get_roles
 from auth.check_ids_match import check_member_ids_match
 from utils.limiter import limiter
 
@@ -31,7 +32,13 @@ class FieldDataOne(ResourceDetail):
     def before_get_object(self, view_kwargs):
         """
         Raises error if no field_data w/ provided id and deleted=False
-        Also ensures that the member id matches recorded_by.
+        Also ensures that the member id matches recorded_by or the user
+        has the proper designation.
+
+        Params
+        ------
+        view_kwargs:
+            The args passed in the URL
         """
         if view_kwargs.get('id') is not None:
             try: # try to get field data w/ id and deleted=False
@@ -40,13 +47,27 @@ class FieldDataOne(ResourceDetail):
                 raise ObjectNotFound({'parameter': 'id'},
                                      "Field data: {} not found".format(view_kwargs['id']))
             
-            # If the field_data.recorded_by != member_id in token, raise exception
-            check_member_ids_match(field_data.recorded_by)
+            roles_dict = get_roles()
+            ngo_id = field_data.ngo_id
+
+            # if not an OM for the ngo, make sure member_ids match
+            if ngo_id not in roles_dict or 'OM' not in roles_dict[ngo_id]:
+                # If the field_data.recorded_by != member_id in token, raise exception
+                check_member_ids_match(field_data.recorded_by)
+
 
     def before_update_object(self, obj, data, view_kwargs):
         """
         Raises error if no field_data w/ provided id and deleted=False.
-        Also ensures that the member id matches recorded_by.
+        Also ensures that the member id matches recorded_by or the user
+        has the proper designation.
+
+        Params
+        ------
+        data:
+            The data part of the request body
+        view_kwargs:
+            The args passed in the URL
         """
         if view_kwargs.get('id') is not None:
             try: # try to get field data w/ id and deleted=False
@@ -55,8 +76,23 @@ class FieldDataOne(ResourceDetail):
                 raise ObjectNotFound({'parameter': 'id'},
                                      "Field data: {} not found".format(view_kwargs['id']))
 
-            # If the field_data.recorded_by != member_id in token, raise exception
-            check_member_ids_match(field_data.recorded_by)
+            roles_dict = get_roles()
+            ngo_id = field_data.ngo_id
+
+            # if not an DM for the ngo
+            if ngo_id not in roles_dict or 'DM' not in roles_dict[ngo_id]:
+                raise AccessDenied(
+                    {'parameter': 'id'}, 
+                    "Member cannot update ngo {}'s field_data. They are not an DM for ngo {}.".format(
+                        ngo_id, ngo_id
+                    )
+                )
+
+            # if not an OM for the ngo, make sure member_ids match
+            if ngo_id not in roles_dict or 'OM' not in roles_dict[ngo_id]:
+                # If the field_data.recorded_by != member_id in token, raise exception
+                check_member_ids_match(field_data.recorded_by)
+
 
 
     schema = FieldDataSchema
@@ -67,5 +103,5 @@ class FieldDataOne(ResourceDetail):
     methods = ['GET', 'PATCH']
     decorators = (
         token_required, 
-        limiter.limit("5/second;30/minute"), 
+        limiter.limit("5/second;45/minute,300/hour"), 
     )
