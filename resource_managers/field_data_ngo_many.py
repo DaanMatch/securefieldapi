@@ -55,8 +55,7 @@ class FieldDataNgoMany(ResourceList):
         if view_kwargs.get('id') is not None:
             ngo_id = view_kwargs.get('id')
 
-            # The member must be designated 'OM' for this NGO to access
-            # all the NGO's field_data
+            # if not an OM for this ngo
             if ngo_id not in roles_dict or 'OM' not in roles_dict[ngo_id]:
                  raise AccessDenied(
                     {'parameter': 'id'}, 
@@ -64,14 +63,15 @@ class FieldDataNgoMany(ResourceList):
                         member_id, ngo_id, ngo_id
                     )
                 )
+
             try:
                 self.session.query(DaanmatchNgo).filter_by(id=ngo_id).one()
-            except NoResultFound:
+            except NoResultFound: # ngo does not exist
                 raise ObjectNotFound(
                     {'parameter': 'id'}, 
                     "DaanmatchNgo: {} not found".format(ngo_id)
                 )
-            else: # Join Member.id w/ FieldData.recorded_by (foreign key) by default
+            else: # Join DaanmatchNgo.id w/ FieldData.ngo_id (foreign key) by default
                 query_ = query_.join(DaanmatchNgo).filter(DaanmatchNgo.id == ngo_id)
         
         return query_
