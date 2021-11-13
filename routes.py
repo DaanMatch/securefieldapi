@@ -6,7 +6,7 @@ from utils.limiter import limiter
 
 
 # login route, could not get to work w/ flask_rest_jsonapi extention
-@limiter.limit("6/10minutes")
+@limiter.limit("10/30minutes")
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
     return login_member()
