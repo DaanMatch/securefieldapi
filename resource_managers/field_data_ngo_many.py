@@ -1,8 +1,6 @@
 from sqlalchemy.orm.exc import NoResultFound
 from flask_rest_jsonapi import ResourceList
 from flask_rest_jsonapi.exceptions import AccessDenied, ObjectNotFound
-from flask import request
-import jwt
 
 from setup.db import db
 from schemas import FieldDataSchema
@@ -10,7 +8,6 @@ from models import FieldData, DaanmatchNgo
 from auth.token_required import token_required
 from auth.get_roles import get_roles
 from utils.limiter import limiter
-from setup.config import SECRET_KEY
 
 
 class FieldDataNgoMany(ResourceList):
@@ -41,15 +38,10 @@ class FieldDataNgoMany(ResourceList):
         ----------
         view_kwargs.id is the id for the desired NGO.
         """
-        # get the member_id from the token
-        token = request.headers['x-access-tokens']
-        token_data = jwt.decode(token, SECRET_KEY)
-        member_id = token_data['member_id']
-
         query_ = self.session.query(FieldData).filter_by(deleted=False)
         
         # formatted like { ngo_id_1: ['OM', 'DM', ...], ... }
-        roles_dict = get_roles(member_id)
+        roles_dict = get_roles()
 
         # Filter all field_data corresponding to member.id
         if view_kwargs.get('id') is not None:
@@ -59,8 +51,8 @@ class FieldDataNgoMany(ResourceList):
             if ngo_id not in roles_dict or 'OM' not in roles_dict[ngo_id]:
                  raise AccessDenied(
                     {'parameter': 'id'}, 
-                    "Member {} cannot access ngo {}'s field_data. They are not an OM for ngo {}.".format(
-                        member_id, ngo_id, ngo_id
+                    "Member cannot access ngo {}'s field_data. They are not an OM for ngo {}.".format(
+                        ngo_id, ngo_id
                     )
                 )
 

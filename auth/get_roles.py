@@ -1,8 +1,11 @@
+from flask import request
+import jwt
 import re
 
 from models import People
+from setup.config import SECRET_KEY
 
-def get_roles(member_id):
+def get_roles():
     """
     Gets the roles associated with a member id for all NGOs 
     member_id is associated with in the people table.
@@ -14,6 +17,11 @@ def get_roles(member_id):
         ...
     }
     """
+    # get the member_id from the token
+    token = request.headers['x-access-tokens']
+    token_data = jwt.decode(token, SECRET_KEY)
+    member_id = token_data['member_id']
+
     ngo_roles_dict = {}
 
     # All people associated w/ member_id. This is really the same
