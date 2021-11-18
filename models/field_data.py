@@ -16,11 +16,6 @@ class FieldData(db.Model):
     sdg:
         Sustainable development goals. 
         This field might be removed later on.
-
-    daanmatch_ngo:
-        Creates a relationship between daanmatch_ngo and field_data
-    member:
-        Creates a relationship between member and field_data
     """
     
     id = db.Column(db.Integer, primary_key=True)
@@ -39,8 +34,3 @@ class FieldData(db.Model):
     sdg = db.Column(db.CHAR)
     deleted = db.Column(db.Boolean)
 
-    daanmatch_ngo = db.relationship('DaanmatchNgo', 
-        backref=db.backref('field_data', uselist = False))
-
-    member = db.relationship('Member', 
-        backref=db.backref('field_data', uselist = True))
