@@ -12,10 +12,13 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 | -- | -- | -- | -- | -- |
 | /member/\<int:id\>/field_data | GET | field_data_many | Retrieve a list of all field_data entries associated with a member |
 | /member/\<int:id\>/field_data | POST | field_data_many | Creates a field_data entry associated with a member |
+| /ngo/\<int:id\>/field_data | GET | field_data_ngo_many | Retrieve all field_data associated with NGO id. Must have "OM" designation for the specified NGO |
 | /field_data/\<int:id\> | GET | field_data_one | Retrieve details of a field_data entry |
 | /field_data/\<int:id\> | PATCH | field_data_one | Updates a field_data entry |
 | /member/\<int:id\> | GET | member_one | Retrieve details of a member | (except password)
 | /member/\<int:id\> | PATCH | member_one | Updates a member's password | Use this to let members already in the database set a password. Nothing else can be updated.
+| /field_data/\<int:id\>/delete | PATCH | field_data_delete | Sets field_data.deleted = True |
+| /login | GET | login | Allow member to login. Temp passwords are "password" no quotes. | 
 
 <br/><br/><br/><br/>
 
@@ -23,7 +26,7 @@ This version of the documentation is neither complete nor robust. It (hopefully)
 
 | URL | Method | Endpoint | Action | Notes |
 | -- | -- | -- | -- | -- |
-| /field_data/\<int:id\> | DELETE | field_data_one | Deletes a field_data entry | Need to create a workaround to prevent malicious deletion
+
 
 <br/><br/><br/><br/>
 

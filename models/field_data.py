@@ -1,5 +1,4 @@
-from db import db
-from utils.sdg import SDG
+from setup.db import db
 
 class FieldData(db.Model):
     """
@@ -17,17 +16,12 @@ class FieldData(db.Model):
     sdg:
         Sustainable development goals. 
         This field might be removed later on.
-
-    daanmatch_ngo:
-        Creates a relationship between daanmatch_ngo and field_data
-    member:
-        Creates a relationship between member and field_data
     """
     
     id = db.Column(db.Integer, primary_key=True)
     ngo_id =  db.Column(db.Integer, db.ForeignKey('daanmatch_ngo.id'),
         nullable=False)
-    recorded_by = db.Column(db.Text, db.ForeignKey('member.id'))
+    recorded_by = db.Column(db.Integer, db.ForeignKey('member.id'))
     date = db.Column(db.Date)
     address = db.Column(db.Text)
     latitude = db.Column(db.DECIMAL)
@@ -38,9 +32,5 @@ class FieldData(db.Model):
     media_type = db.Column(db.Text)
     sector_id = db.Column(db.Integer)
     sdg = db.Column(db.CHAR)
+    deleted = db.Column(db.Boolean)
 
-    daanmatch_ngo = db.relationship('DaanmatchNgo', 
-        backref=db.backref('field_data', uselist = False))
-
-    member = db.relationship('Member', 
-        backref=db.backref('field_data', uselist = True))

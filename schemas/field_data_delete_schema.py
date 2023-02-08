@@ -1,7 +1,7 @@
 from marshmallow_jsonapi import fields
 from marshmallow_jsonapi.flask import Schema
 
-class FieldDataSchema(Schema):
+class FieldDataDeleteSchema(Schema):
     """
     Acts as the abstraction layer between the field_data table and user. 
     This class allows us to control what fields 
@@ -38,15 +38,15 @@ class FieldDataSchema(Schema):
 
     id = fields.Integer()
     ngo_id = fields.Integer(required=True)
-    recorded_by = fields.Integer()
-    date = fields.Date()
-    address = fields.Str()
-    latitude = fields.Decimal()
-    longitude = fields.Decimal()
-    title = fields.Str()
-    comment = fields.Str()
-    media = fields.Str()
-    media_type = fields.Str()
-    sector_id = fields.Integer()
-    sdg = fields.Str()
-    deleted = fields.Boolean(dump_only=True)
+    recorded_by = fields.Integer(dump_only=True)
+    date = fields.Date(dump_only=True)
+    address = fields.Str(dump_only=True)
+    latitude = fields.Decimal(dump_only=True)
+    longitude = fields.Decimal(dump_only=True)
+    title = fields.Str(dump_only=True)
+    comment = fields.Str(dump_only=True)
+    media = fields.Str(dump_only=True)
+    media_type = fields.Str(dump_only=True)
+    sector_id = fields.Integer(dump_only=True)
+    sdg = fields.Str(dump_only=True)
+    deleted = fields.Boolean()

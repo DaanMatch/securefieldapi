@@ -1,11 +1,8 @@
-
-# Note: I have no idea if this works yet. 
-
 from flask import jsonify, request
 import jwt
 from functools import wraps
 
-from config import SECRET_KEY
+from setup.config import SECRET_KEY
 from models import Member
 
 # Create decorator for authorization:
@@ -23,7 +20,7 @@ def token_required(f):
 
         try:
             data = jwt.decode(token, SECRET_KEY)
-            current_member = Member.query.filter_by(id=data['id']).first()
+            current_member = Member.query.filter_by(id=data['member_id']).first()
         except:
             return jsonify({'message': 'token is invalid'})
 

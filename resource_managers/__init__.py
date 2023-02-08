@@ -17,9 +17,8 @@ class ResourceManager(Resource_________):
                   'model': ResourceModel}   # Required attr
 """
 
+from .field_data_delete import *
 from .field_data_many import *
+from .field_data_ngo_many import *
 from .field_data_one import *
 from .member_one import *
-
-
-from .ForTestingOnly_member_many import *

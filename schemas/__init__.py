@@ -29,7 +29,7 @@ class TableNameSchema(Schema):
         schema = 'Child/ChildrenSchema',
         type_ = child/children)
 """
-
+from .field_data_delete_schema import *
 from .field_data_schema import *
 from .daanmatch_ngo_schema import *
 from .member_schema import *

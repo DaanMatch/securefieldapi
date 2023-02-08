@@ -1,8 +1,19 @@
 CREATE TABLE daanmatch_ngo (
 id INT NULL,
 [name] VARCHAR(255) NULL,
+[description] VARCHAR(255) NULL,
+[type] VARCHAR(255) NULL,
+last_updated DATETIME NULL,
+[address] VARCHAR(255) NULL,
 email VARCHAR(255) NULL,
-mobile VARCHAR(255) NULL
+mobile VARCHAR(255) NULL,
+fax VARCHAR(255) NULL,
+website VARCHAR(255) NULL,
+facebook VARCHAR(255) NULL,
+twitter VARCHAR(255) NULL,
+fulltime_staff INT NULL,
+parttime_staff INT NULL,
+volunteers INT NULL
 );
 INSERT INTO daanmatch_ngo (id,[name],email,mobile) VALUES 
 ( 1,'ABHAY SMRITI SEWA SANSTHAN','abhaysewa@gmail.com
