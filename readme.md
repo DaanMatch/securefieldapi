@@ -1,3 +1,4 @@
+Wen To imploemnet Member.sql
 ## Running server
 Create and start virtual environment
 ```
