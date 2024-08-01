@@ -15,7 +15,7 @@ marshmallow==3.13.0
 marshmallow-enum==1.5.1
 marshmallow-jsonapi==0.24.0
 pycparser==2.20
-PyJWT==2.4.0
+PyJWT==2.9.0
 six==1.16.0
 SQLAlchemy==1.4.46
 Werkzeug==2.0.1
