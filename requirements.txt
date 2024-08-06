@@ -2,7 +2,7 @@ cffi==1.15.1
 click==8.0.1
 colorama==0.4.6
 cryptography==42.0.0
-Flask==2.0.1
+Flask==2.2.5
 Flask-Limiter==1.4
 Flask-REST-JSONAPI==0.31.2
 Flask-SQLAlchemy==2.5.1
